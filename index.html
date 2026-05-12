@@ -496,6 +496,11 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
   100%{transform:translateY(110vh) rotate(720deg);opacity:0}
 }
 
+@keyframes pulse-btn{
+  0%,100%{box-shadow:0 0 10px rgba(250,100,40,0.3);transform:scale(1)}
+  50%{box-shadow:0 0 30px rgba(250,100,40,0.7),0 0 60px rgba(250,100,40,0.3);transform:scale(1.04)}
+}
+
 /* === Responsive === */
 @media(max-width:900px){
   .slide{padding:32px 24px 80px 24px}
@@ -576,6 +581,7 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
           <div class="meta-value">Financial Staff</div>
         </div>
       </div>
+      <button class="tool-btn" style="margin-top:28px;font-size:18px;padding:14px 38px;letter-spacing:1.5px;animation:pulse-btn 2s ease-in-out infinite" onclick="activateJourney()">🚀 Activate the Journey</button>
       <div class="cover-ornament">
         <img src="https://websitev3-cms-cdn.bankaletihad.com/2025/01/short-logo-white.1372864e.svg" alt="" style="width:80px;height:80px;opacity:.7;position:absolute;z-index:1">
         <div class="seal" style="margin-top:110px">The Deep Edge<br>Programme · 2026</div>
@@ -642,7 +648,7 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
               <div>Wrong answer resets streak</div>
             </div>
           </div>
-          <button class="tool-btn mt-md" onclick="document.getElementById('scoreBoard').style.display='block';showToast('🚀 Scoreboard activated!')">Activate Scoreboard</button>
+          <div class="mt-md" style="text-align:center;color:var(--bae-orange);font-size:13px;opacity:.7">Scoreboard activates from the cover slide</div>
         </div>
       </div>
     </section>
@@ -651,12 +657,12 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
     <section class="slide">
       <div class="eyebrow">Module 01 · The Threat Landscape</div>
       <h2 class="section">Banks are <em>Target #1</em></h2>
-      <p class="lede">Financial services suffered roughly <span class="hl">3,348</span> reported cyber incidents in 2023 — almost double the 2022 figure.</p>
+      <p class="lede">Financial services suffered roughly <span class="hl">6,360</span> reported cyber incidents in 2025 — nearly double the 2024 figure of 3,348.</p>
       <div class="stat-row">
-        <div class="stat"><div class="stat-big">300×</div><div class="stat-label">More attacks than other industries (IMF)</div></div>
-        <div class="stat"><div class="stat-big">$5.9M</div><div class="stat-label">Average breach cost (IBM 2024)</div></div>
-        <div class="stat"><div class="stat-big">82%</div><div class="stat-label">Involve the human element</div></div>
-        <div class="stat"><div class="stat-big">277d</div><div class="stat-label">Average time to contain</div></div>
+        <div class="stat"><div class="stat-big">300×</div><div class="stat-label">More attacks than other industries (IMF 2025)</div></div>
+        <div class="stat"><div class="stat-big">$6.08M</div><div class="stat-label">Average breach cost (IBM 2025)</div></div>
+        <div class="stat"><div class="stat-big">85%</div><div class="stat-label">Involve the human element (Verizon 2025)</div></div>
+        <div class="stat"><div class="stat-big">258d</div><div class="stat-label">Average time to contain (2026 est.)</div></div>
       </div>
       <div class="mt-lg">
         <div class="module-marker">// TOP 5 THREATS FACING JORDANIAN BANKS IN 2026</div>
@@ -1158,8 +1164,9 @@ IT Helpdesk"</div>
           <div class="closing-cell-label">Badges earned</div>
         </div>
       </div>
-      <div style="margin-top:36px;display:flex;gap:14px;justify-content:center">
+      <div style="margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
         <button class="nav-btn primary" onclick="downloadCertificate()">Download My Certificate</button>
+        <button class="nav-btn" style="background:linear-gradient(135deg,#FA6428,#e0551e);color:#fff;border:none;font-weight:700;letter-spacing:.5px" onclick="window.open('https://etihad-cyber-wars-arena.vercel.app','_blank')">⚔️ Cyber Wars Arena</button>
         <button class="nav-btn" onclick="goSlide(0)">Restart Programme</button>
       </div>
       <div style="margin-top:52px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;color:rgba(244,236,216,0.4);text-align:center">
@@ -1199,6 +1206,36 @@ for(let i=0;i<total;i++){
   d.onclick=()=>goSlide(i);
   dotTrack.appendChild(d);
 }
+let journeyActivated=false;
+function activateJourney(){
+  journeyActivated=true;
+  document.getElementById('scoreBoard').style.display='block';
+  showToast('🚀 Journey activated! Scoreboard & timers are live. Good luck!');
+  goSlide(1);
+}
+const gameSlideIndices=new Set();
+function detectGameSlides(){
+  slides.forEach((s,i)=>{
+    const eyebrow=s.querySelector('.eyebrow');
+    if(eyebrow){
+      const txt=eyebrow.textContent.toLowerCase();
+      if(txt.includes('game')||txt.includes('lab')||txt.includes('challenge'))gameSlideIndices.add(i);
+    }
+    if(s.querySelector('.timer-bar')||s.querySelector('.quiz-container')||s.querySelector('.drag-item'))gameSlideIndices.add(i);
+  });
+}
+detectGameSlides();
+function autoStartSlideTimer(slideIdx){
+  const slide=slides[slideIdx];
+  if(!slide)return;
+  const startBtn=slide.querySelector('.tool-btn[onclick*="startClassifyTimer"]')||slide.querySelector('#classifyStartBtn');
+  if(startBtn&&!startBtn.disabled){startBtn.click();return;}
+  const timerBtns=slide.querySelectorAll('.tool-btn');
+  timerBtns.forEach(btn=>{
+    const oc=btn.getAttribute('onclick')||'';
+    if((oc.includes('Timer')||oc.includes('timer'))&&!btn.disabled)btn.click();
+  });
+}
 function goSlide(i){
   if(i<0||i>=total)return;
   slides[cur].classList.remove('active');
@@ -1212,6 +1249,10 @@ function goSlide(i){
   updateCounter();
   updateProgressBar();
   if(cur===total-1)updateFinalScreen();
+  if(gameSlideIndices.has(i)){
+    document.getElementById('scoreBoard').style.display='block';
+    setTimeout(()=>autoStartSlideTimer(i),600);
+  }
 }
 function nextSlide(){if(cur<total-1)goSlide(cur+1)}
 function prevSlide(){if(cur>0)goSlide(cur-1)}
