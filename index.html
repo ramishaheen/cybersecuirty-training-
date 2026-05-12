@@ -742,13 +742,13 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
 • The beneficiary account is in a country Bank Al Etihad has never dealt with
 • Email signature looks identical to the real CEO's signature</div>
         <div class="quiz-prompt">What type of attack is this, and what is the FIRST thing you should do?</div>
-        <div class="quiz-options" id="q2Options">
-          <button class="quiz-opt" onclick="answerQ('q2',this,false,'Processing the wire based on email alone violates dual-authorization policy. The urgency and &quot;don\'t call me&quot; are classic BEC red flags.')"><div class="letter">A</div>It looks legitimate — process the wire since the CEO asked.</button>
-          <button class="quiz-opt" onclick="answerQ('q2',this,false,'Replying to the spoofed email means you are still communicating with the attacker, not the real CEO.')"><div class="letter">B</div>Reply to the email asking for more details before processing.</button>
-          <button class="quiz-opt" onclick="answerQ('q2',this,true,'Correct! This is a Business Email Compromise (BEC) attack — the #1 threat to banks. The spoofed domain, urgency, &quot;don\'t call me&quot; pressure, and unfamiliar beneficiary are textbook red flags. Always verify via a separate known channel.')"><div class="letter">C</div>This is BEC — call the CEO on a known phone number to verify before any action.</button>
-          <button class="quiz-opt" onclick="answerQ('q2',this,false,'Forwarding a suspicious email can spread the attack. Verify first via phone, then report to SOC.')"><div class="letter">D</div>Forward the email to the finance team so more people can review it.</button>
+        <div class="quiz-options" id="hack2Options">
+          <button class="quiz-opt" onclick="answerQ('hack2',this,false,'Processing the wire based on email alone violates dual-authorization policy. The urgency and &quot;don\'t call me&quot; are classic BEC red flags.')"><div class="letter">A</div>It looks legitimate — process the wire since the CEO asked.</button>
+          <button class="quiz-opt" onclick="answerQ('hack2',this,false,'Replying to the spoofed email means you are still communicating with the attacker, not the real CEO.')"><div class="letter">B</div>Reply to the email asking for more details before processing.</button>
+          <button class="quiz-opt" onclick="answerQ('hack2',this,true,'Correct! This is a Business Email Compromise (BEC) attack — the #1 threat to banks. The spoofed domain, urgency, &quot;don\'t call me&quot; pressure, and unfamiliar beneficiary are textbook red flags. Always verify via a separate known channel.')"><div class="letter">C</div>This is BEC — call the CEO on a known phone number to verify before any action.</button>
+          <button class="quiz-opt" onclick="answerQ('hack2',this,false,'Forwarding a suspicious email can spread the attack. Verify first via phone, then report to SOC.')"><div class="letter">D</div>Forward the email to the finance team so more people can review it.</button>
         </div>
-        <div class="quiz-feedback" id="q2Feedback"></div>
+        <div class="quiz-feedback" id="hack2Feedback"></div>
       </div>
 
       <!-- Scenario 3: CIA Pillars in Practice -->
@@ -765,13 +765,13 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
 • The core banking system shows a transaction was modified AFTER approval — amount changed from JOD 500 to JOD 50,000
 • No audit trail exists for the modification</div>
         <div class="quiz-prompt">Which of the five security pillars (C-I-A-N-Z) are being violated here?</div>
-        <div class="quiz-options" id="q3Options">
-          <button class="quiz-opt" onclick="answerQ('q3',this,false,'The DDoS breaks Availability, but the WhatsApp leak breaks Confidentiality and the modified transaction breaks Integrity and Non-Repudiation too.')"><div class="letter">A</div>Only Availability — the portal is down, that is the main problem.</button>
-          <button class="quiz-opt" onclick="answerQ('q3',this,false,'Those two are violated, but the missing audit trail also breaks Non-Repudiation — no one can prove who made the change.')"><div class="letter">B</div>Confidentiality and Integrity only.</button>
-          <button class="quiz-opt" onclick="answerQ('q3',this,true,'Correct! All four are violated: Confidentiality (WhatsApp leak), Integrity (modified transaction), Availability (DDoS downtime), and Non-Repudiation (no audit trail). This scenario shows why all pillars matter simultaneously.')"><div class="letter">C</div>Confidentiality, Integrity, Availability, AND Non-Repudiation — four pillars breached at once.</button>
-          <button class="quiz-opt" onclick="answerQ('q3',this,false,'Zero Trust is a design principle (verify every session). While it should be applied, the active violations here are C, I, A, and N.')"><div class="letter">D</div>Only Zero Trust — the teller was not verified before sharing data.</button>
+        <div class="quiz-options" id="hack3Options">
+          <button class="quiz-opt" onclick="answerQ('hack3',this,false,'The DDoS breaks Availability, but the WhatsApp leak breaks Confidentiality and the modified transaction breaks Integrity and Non-Repudiation too.')"><div class="letter">A</div>Only Availability — the portal is down, that is the main problem.</button>
+          <button class="quiz-opt" onclick="answerQ('hack3',this,false,'Those two are violated, but the missing audit trail also breaks Non-Repudiation — no one can prove who made the change.')"><div class="letter">B</div>Confidentiality and Integrity only.</button>
+          <button class="quiz-opt" onclick="answerQ('hack3',this,true,'Correct! All four are violated: Confidentiality (WhatsApp leak), Integrity (modified transaction), Availability (DDoS downtime), and Non-Repudiation (no audit trail). This scenario shows why all pillars matter simultaneously.')"><div class="letter">C</div>Confidentiality, Integrity, Availability, AND Non-Repudiation — four pillars breached at once.</button>
+          <button class="quiz-opt" onclick="answerQ('hack3',this,false,'Zero Trust is a design principle (verify every session). While it should be applied, the active violations here are C, I, A, and N.')"><div class="letter">D</div>Only Zero Trust — the teller was not verified before sharing data.</button>
         </div>
-        <div class="quiz-feedback" id="q3Feedback"></div>
+        <div class="quiz-feedback" id="hack3Feedback"></div>
       </div>
 
       <!-- Scenario 4: Insider Threat + Supply Chain -->
@@ -788,13 +788,13 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
 • An IT staff member noticed but delayed reporting for 3 days, hoping to "fix it quietly"
 • By the time SOC was informed, 2,400 card numbers had been exfiltrated</div>
         <div class="quiz-prompt">This scenario combines two of the top 5 threats facing Jordanian banks. Which two?</div>
-        <div class="quiz-options" id="q4Options">
-          <button class="quiz-opt" onclick="answerQ('q4',this,false,'While ransomware is a top threat, this scenario involves data exfiltration through a compromised vendor tool, not encryption or ransom demands.')"><div class="letter">A</div>Ransomware-as-a-Service and Deepfake Social Engineering.</button>
-          <button class="quiz-opt" onclick="answerQ('q4',this,true,'Correct! The vendor\'s compromised build server is a textbook Supply-Chain Compromise (#4 threat). The IT staff member delaying the report is Insider negligence / Privilege Abuse (#3 threat). Together they multiplied the damage from hours to days.')"><div class="letter">B</div>Supply-Chain Compromise (vendor's build server hacked) and Insider Privilege Abuse (delayed reporting).</button>
-          <button class="quiz-opt" onclick="answerQ('q4',this,false,'BEC involves email impersonation for wire fraud. This attack came through a compromised software supply chain, not email.')"><div class="letter">C</div>Business Email Compromise and Supply-Chain Compromise.</button>
-          <button class="quiz-opt" onclick="answerQ('q4',this,false,'No AI-cloned voices or social engineering were used. The attack vector was a compromised vendor update, and the damage was worsened by an insider\'s delayed reporting.')"><div class="letter">D</div>Deepfake Social Engineering and Insider Fraud.</button>
+        <div class="quiz-options" id="hack4Options">
+          <button class="quiz-opt" onclick="answerQ('hack4',this,false,'While ransomware is a top threat, this scenario involves data exfiltration through a compromised vendor tool, not encryption or ransom demands.')"><div class="letter">A</div>Ransomware-as-a-Service and Deepfake Social Engineering.</button>
+          <button class="quiz-opt" onclick="answerQ('hack4',this,true,'Correct! The vendor\'s compromised build server is a textbook Supply-Chain Compromise (#4 threat). The IT staff member delaying the report is Insider negligence / Privilege Abuse (#3 threat). Together they multiplied the damage from hours to days.')"><div class="letter">B</div>Supply-Chain Compromise (vendor's build server hacked) and Insider Privilege Abuse (delayed reporting).</button>
+          <button class="quiz-opt" onclick="answerQ('hack4',this,false,'BEC involves email impersonation for wire fraud. This attack came through a compromised software supply chain, not email.')"><div class="letter">C</div>Business Email Compromise and Supply-Chain Compromise.</button>
+          <button class="quiz-opt" onclick="answerQ('hack4',this,false,'No AI-cloned voices or social engineering were used. The attack vector was a compromised vendor update, and the damage was worsened by an insider\'s delayed reporting.')"><div class="letter">D</div>Deepfake Social Engineering and Insider Fraud.</button>
         </div>
-        <div class="quiz-feedback" id="q4Feedback"></div>
+        <div class="quiz-feedback" id="hack4Feedback"></div>
       </div>
     </section>
 
@@ -865,33 +865,15 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
 
     <!-- ===== SLIDE 9: GAME 3 — PHISH OR LEGIT ===== -->
     <section class="slide">
-      <div class="eyebrow">Module 04 · Game · 30 pts</div>
+      <div class="eyebrow">Module 04 · Game · 100 pts</div>
       <h2 class="section">Phish or <em>legit?</em></h2>
-      <p class="lede">Three emails. Each could land in your inbox tomorrow. Wrong answer = -5 pts.</p>
+      <p class="lede">Ten emails land in your inbox. Some are real, some will steal your credentials. Wrong answer = -5 pts.</p>
       <div class="quiz-container" id="phishGame">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div class="score-pill">Email <span class="pts" id="phishNum">1</span> of 3</div>
+          <div class="score-pill">Email <span class="pts" id="phishNum">1</span> of 10</div>
           <div class="score-pill" id="phishTimer">⏱ <span class="pts" id="phishTimeLeft">30</span>s</div>
         </div>
-        <div id="phishContent">
-          <div class="quiz-prompt">From: <span class="mono" style="color:var(--bae-orange)">it-support@bankaletihad-jo.com</span></div>
-          <div class="quiz-prompt" style="font-size:16px">Subject: <em>"Urgent: MFA re-enrollment required by 17:00"</em></div>
-          <div class="quiz-scenario">"Dear colleague,
-
-Due to a security upgrade, all staff must re-enroll MFA TODAY by 17:00 or face account suspension.
-
-Click here: https://aletihad-mfa-update.jo-secure.com/login
-
-Regards,
-IT Helpdesk"</div>
-          <div class="quiz-options">
-            <button class="quiz-opt" onclick="answerPhish(0,this,false,'You just clicked a phishing link! Real domain is bankaletihad.com — not bankaletihad-jo.com. The redirect jo-secure.com is a giveaway.')"><div class="letter">A</div>Click the link — IT deadlines are serious.</button>
-            <button class="quiz-opt" onclick="answerPhish(0,this,true,'Correct! Domain bankaletihad-jo.com is a look-alike. Redirect domain jo-secure.com is unfamiliar. Urgency + suspension threat = phishing.')"><div class="letter">B</div>Report via "Report Phishing" button and delete.</button>
-            <button class="quiz-opt" onclick="answerPhish(0,this,false,'Forwarding risks others clicking. Report via the official Outlook plugin.')"><div class="letter">C</div>Forward to manager to ask.</button>
-            <button class="quiz-opt" onclick="answerPhish(0,this,false,'Ignoring leaves the threat. Reporting helps SOC block for everyone.')"><div class="letter">D</div>Ignore it — IT will follow up.</button>
-          </div>
-          <div class="quiz-feedback" id="phish0Feedback"></div>
-        </div>
+        <div id="phishContent"></div>
       </div>
     </section>
 
@@ -1045,27 +1027,18 @@ IT Helpdesk"</div>
 
     <!-- ===== SLIDE 15: GAME 6 — INCIDENT RESPONSE TABLETOP ===== -->
     <section class="slide">
-      <div class="eyebrow">Module 08 · Tabletop · 40 pts</div>
+      <div class="eyebrow">Module 08 · Tabletop · 50 pts</div>
       <h2 class="section">First responder <em>tabletop</em></h2>
-      <p class="lede">14:32 Thursday. Mariam notices unauthorised transactions. Treasury reports the same pattern on 4 accounts. <span class="hl">What do you do first?</span></p>
-      <div class="quiz-container">
+      <p class="lede">Real incidents, real pressure. Make the right call in each scenario. 10 pts each.</p>
+      <div class="quiz-container" id="tabletopGame">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div class="score-pill">Tabletop <span class="pts">1</span></div>
-          <div class="score-pill">Worth <span class="pts">40 pts</span></div>
+          <div class="score-pill">Tabletop <span class="pts" id="tabletopNum">1</span> of 5</div>
+          <div class="score-pill">Worth <span class="pts">50 pts</span> total</div>
         </div>
-        <div class="quiz-scenario">SITUATION — 14:32 THURSDAY
-
-• Customer on phone: 3 unauthorised transfers in the last hour
-• Treasury: similar pattern on 4 other accounts
-• SOC dashboard: no current alerts
-• Manager in meeting, not answering</div>
         <div class="quiz-options">
-          <button class="quiz-opt" onclick="answerQ('q3',this,false,'Calming the customer matters but containment first. CSIRT process: Detect → Contain → Eradicate → Recover → Learn.',40)"><div class="letter">A</div>Reassure the customer and promise reversal.</button>
-          <button class="quiz-opt" onclick="answerQ('q3',this,true,'Correct! Multiple affected accounts = systemic incident. CSIRT hotline triggers lockdown, freeze, and CBJ notification within 72h.',40)"><div class="letter">B</div>Call the CSIRT hotline immediately.</button>
-          <button class="quiz-opt" onclick="answerQ('q3',this,false,'Don\'t wait for your manager. CBJ requires notification within 72 hours. Escalate to CSIRT — they will involve your manager.',0)"><div class="letter">C</div>Wait for manager to call back.</button>
-          <button class="quiz-opt" onclick="answerQ('q3',this,false,'Public posting during an active incident is catastrophic. Only the CISO communicates externally.',0)"><div class="letter">D</div>Post warning on social media.</button>
         </div>
-        <div class="quiz-feedback" id="q3Feedback"></div>
+        <div id="tabletopContent"></div>
+        <div class="quiz-feedback" id="tab0Feedback"></div>
       </div>
     </section>
 
@@ -1137,27 +1110,15 @@ IT Helpdesk"</div>
 
     <!-- ===== SLIDE 19: GAME 8 — SOCIAL ENGINEERING SIMULATOR ===== -->
     <section class="slide">
-      <div class="eyebrow">Module 10 · Game · 20 pts</div>
+      <div class="eyebrow">Module 10 · Game · 50 pts</div>
       <h2 class="section">Social Engineering <em>Simulator</em></h2>
-      <p class="lede">You receive a phone call. The caller claims to be from IT. Answer carefully — every wrong step leaks bank data.</p>
+      <p class="lede">Five different callers. Each uses a different tactic. Spot the manipulation — every wrong step leaks bank data.</p>
       <div class="quiz-container" id="seGame">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div class="score-pill">📞 Incoming Call</div>
-          <div class="score-pill">Worth <span class="pts">20 pts</span></div>
+          <div class="score-pill">📞 Call <span class="pts" id="seNum">1</span> of 5</div>
+          <div class="score-pill">Worth <span class="pts">50 pts</span> total</div>
         </div>
-        <div id="seContent">
-          <div class="quiz-scenario" style="border-left-color:var(--amber)">📞 INCOMING CALL — Unknown internal extension
-
-"Hi, this is Ahmed from IT Security. We detected unusual login activity on your account. I need your employee ID and current password to verify it's really you and lock down the breach. This is urgent — the attacker is active right now."</div>
-          <div class="quiz-prompt">What do you do?</div>
-          <div class="quiz-options">
-            <button class="quiz-opt" onclick="answerSE(0,this,false,'Never give your password over the phone! IT will never ask for your password — this is social engineering.')"><div class="letter">A</div>Give your employee ID and password — it's urgent.</button>
-            <button class="quiz-opt" onclick="answerSE(0,this,false,'Giving just your employee ID still gives the attacker a piece they need. Verify the caller first.')"><div class="letter">B</div>Give only your employee ID, not the password.</button>
-            <button class="quiz-opt" onclick="answerSE(0,this,true,'Correct! Hang up and call IT Security on the known internal number. Real IT never asks for passwords over the phone.')"><div class="letter">C</div>Hang up. Call IT Security on the official number.</button>
-            <button class="quiz-opt" onclick="answerSE(0,this,false,'Putting them on hold doesn\'t verify them. They could still social engineer a colleague who picks up.')"><div class="letter">D</div>Put them on hold and ask your colleague.</button>
-          </div>
-          <div class="quiz-feedback" id="se0Feedback"></div>
-        </div>
+        <div id="seContent"></div>
       </div>
     </section>
 
@@ -1418,13 +1379,92 @@ function answerQ(qId,btn,correct,explanation,pts=10){
   fb.innerHTML='<strong>'+(correct?'✓ Correct!':'✗ Not quite.')+'</strong> '+explanation;
   updateStreak(correct);
   if(correct){
-    const badgeMap={q1:'BREACH-SPOTTER',q3:'FIRST-RESPONDER'};
+    const badgeMap={q1:'BREACH-SPOTTER',tab0:'FIRST-RESPONDER'};
     addScore(pts,badgeMap[qId]||null);
   }
   document.getElementById('scoreBoard').style.display='block';
 }
 
-// =================== PHISHING GAME ===================
+// =================== PHISHING GAME (10 emails) ===================
+const phishEmails=[
+  {from:'it-support@bankaletihad-jo.com',subject:'Urgent: MFA re-enrollment required by 17:00',
+   body:'"Dear colleague,\n\nDue to a security upgrade, all staff must re-enroll MFA TODAY by 17:00 or face account suspension.\n\nClick here: https://aletihad-mfa-update.jo-secure.com/login\n\nRegards,\nIT Helpdesk"',
+   opts:[{text:'Click the link — IT deadlines are serious.',correct:false,fb:'You just clicked a phishing link! Real domain is bankaletihad.com — not bankaletihad-jo.com. The redirect jo-secure.com is a giveaway.'},
+         {text:'Report via "Report Phishing" button and delete.',correct:true,fb:'Correct! Domain bankaletihad-jo.com is a look-alike. Redirect domain jo-secure.com is unfamiliar. Urgency + suspension threat = phishing.'},
+         {text:'Forward to manager to ask.',correct:false,fb:'Forwarding risks others clicking. Report via the official Outlook plugin.'},
+         {text:'Ignore it — IT will follow up.',correct:false,fb:'Ignoring leaves the threat. Reporting helps SOC block for everyone.'}]},
+  {from:'noreply@microsoft.com',subject:'Your Microsoft 365 password expires in 3 days',
+   body:'"Hi,\n\nYour password for rami.h@bankaletihad.com expires in 3 days.\n\nUpdate at: https://portal.office.com/account\n\nMicrosoft 365 Team"',
+   opts:[{text:'It\'s phishing — Microsoft never emails about passwords.',correct:false,fb:'Actually, Microsoft 365 does send password expiry notices. The domain portal.office.com is legitimate.'},
+         {text:'Click the link to update your password.',correct:false,fb:'Even for legitimate emails, best practice is to navigate directly to the portal — never click email links for password changes.'},
+         {text:'Navigate to portal.office.com directly (not via the link) and check.',correct:true,fb:'Correct! The email appears legitimate but best practice is always to navigate directly. Never use email links for credential changes.'},
+         {text:'Delete it immediately.',correct:false,fb:'This one is actually legitimate. But you should still go directly to the portal rather than clicking.'}]},
+  {from:'ceo@bankaletihad.com',subject:'CONFIDENTIAL — Urgent wire needed',
+   body:'"I need you to process an urgent wire transfer of $340,000 to the account below. This is for a confidential acquisition — do NOT discuss with anyone.\n\nAccount: DE89 3704 0044 0532 0130 00\nBank: Deutsche Bank Frankfurt\n\nI\'m in back-to-back meetings. Just process it.\n\n— Sent from my iPhone"',
+   opts:[{text:'Process it — it\'s from the CEO\'s real email.',correct:false,fb:'Email addresses can be spoofed! The "don\'t tell anyone" + urgency + unusual request = classic BEC. Always verify via phone.'},
+         {text:'Reply asking for written authorization.',correct:false,fb:'Replying to a spoofed email just confirms your address to the attacker. Call the CEO directly.'},
+         {text:'Call the CEO on a known number to verify before any action.',correct:true,fb:'Correct! This is a Business Email Compromise (BEC). The real email domain can be spoofed. Secrecy + urgency + wire transfer = red flags. Always verify via callback.'},
+         {text:'Forward to your manager for approval.',correct:false,fb:'Good instinct to escalate, but the first step is to verify the request is real. Call the CEO.'}]},
+  {from:'alerts@cbj.gov.jo',subject:'CBJ Circular 12/2026 — New KYC Requirements',
+   body:'"Dear Compliance Officer,\n\nPlease find attached Circular 12/2026 regarding updated KYC documentation requirements effective 1 July 2026.\n\nAll licensed banks must update their CDD procedures accordingly.\n\nAttachment: CBJ_Circular_12_2026.pdf (245 KB)\n\nCentral Bank of Jordan — Banking Supervision Department"',
+   opts:[{text:'Phishing — government bodies don\'t email circulars.',correct:false,fb:'CBJ regularly distributes circulars via email. The domain cbj.gov.jo is the real Central Bank domain, and the attachment is a standard PDF.'},
+         {text:'Open the PDF — it\'s from the Central Bank.',correct:false,fb:'Even from trusted senders, verify the attachment is expected. But this one is legitimate — CBJ does send circulars this way.'},
+         {text:'Verify on the CBJ website first, then open the PDF in a sandbox.',correct:true,fb:'Correct! Even legitimate-looking emails should be verified. Check cbj.gov.jo for the circular, then open the PDF safely. This one IS legitimate.'},
+         {text:'Delete and report as phishing.',correct:false,fb:'This is actually a legitimate regulatory communication. Deleting it could cause compliance issues.'}]},
+  {from:'linkedin-notifications@linkedin-mail.com',subject:'Faisal Al-Rashid wants to connect',
+   body:'"Faisal Al-Rashid, Chief Compliance Officer at Jordan Islamic Bank, wants to connect with you.\n\nMessage: Hi, I noticed we\'re both speaking at the MENA Banking Forum. Would love to discuss our approach to CBJ compliance. I\'ve shared a briefing doc: https://linkedin-docs.com/shared/compliance-brief.pdf\n\nAccept connection →"',
+   opts:[{text:'Accept and open the document — it\'s professional networking.',correct:false,fb:'The domain linkedin-docs.com is NOT LinkedIn! Real LinkedIn shared docs come from linkedin.com. This is credential harvesting via fake professional context.'},
+         {text:'Ignore the connection request.',correct:false,fb:'Good instinct, but you should also report it. Fake professional profiles are used for reconnaissance and spear-phishing.'},
+         {text:'Report the profile and delete — the document link is suspicious.',correct:true,fb:'Correct! linkedin-docs.com is a fake domain. Real LinkedIn docs come from linkedin.com. Professional context makes this spear-phishing more convincing.'},
+         {text:'Google the person first, then accept.',correct:false,fb:'Even if the person exists, the email is spoofed. The fake linkedin-docs.com domain is the giveaway.'}]},
+  {from:'ap@vendor-solutions.com',subject:'Invoice #4891 — Overdue Payment',
+   body:'"Dear Accounts Payable,\n\nPlease find attached Invoice #4891 for IT support services rendered in April 2026. Payment is 15 days overdue.\n\nAmount: JOD 12,450\nAttachment: Invoice_4891.docm\n\nPlease process urgently to avoid service interruption.\n\nBest regards,\nVendor Solutions LLC"',
+   opts:[{text:'Open the attachment and process payment — we don\'t want service interruption.',correct:false,fb:'The .docm extension contains macros — this is a common malware delivery method! Legitimate invoices come as .pdf.'},
+         {text:'The .docm attachment is suspicious — report to SOC and verify with the vendor.',correct:true,fb:'Correct! .docm files contain macros and are a top malware vector. Legitimate vendors send .pdf invoices. The urgency pressure is also a red flag.'},
+         {text:'Forward to finance team to handle.',correct:false,fb:'Forwarding a malicious .docm spreads the threat. Report to SOC first — they\'ll quarantine the email.'},
+         {text:'Reply asking for a PDF version instead.',correct:false,fb:'Don\'t reply to potentially spoofed emails. Report to SOC and verify through known vendor contacts.'}]},
+  {from:'dhl-delivery@dhl-express-jo.com',subject:'Your DHL shipment is held at customs',
+   body:'"Dear Customer,\n\nYour package (AWB: 7492018364) is held at Amman customs due to incomplete documentation.\n\nPay the customs fee (JOD 4.50) to release: https://dhl-express-jo.com/customs-pay\n\nIf not paid within 48 hours, the package will be returned.\n\nDHL Express Jordan"',
+   opts:[{text:'Pay JOD 4.50 — it\'s a small amount and I might have a package.',correct:false,fb:'The domain dhl-express-jo.com is fake! Real DHL uses dhl.com. Small payment requests are designed to harvest card details.'},
+         {text:'Check on dhl.com with the tracking number first.',correct:true,fb:'Correct! The domain dhl-express-jo.com is a fake look-alike. Always go to the real website (dhl.com) to check tracking. Small payment phishing harvests card data.'},
+         {text:'Ignore it — I didn\'t order anything.',correct:false,fb:'Even if you didn\'t order anything, you should report it so SOC can block the domain for everyone.'},
+         {text:'Click to see the customs details before paying.',correct:false,fb:'The link leads to a credential/card harvesting page. Never click — go to the real DHL website instead.'}]},
+  {from:'security-team@bankaletihad.com',subject:'ACTION REQUIRED: Verify your identity',
+   body:'"SECURITY ALERT\n\nWe detected a login to your account from an unrecognised device in Istanbul, Turkey.\n\nIf this was NOT you, verify your identity immediately:\nhttps://bankaletihad-security.com/verify\n\nIf this was you, please disregard this message.\n\nBank Al Etihad Security Operations"',
+   opts:[{text:'Click verify — someone might be in my account!',correct:false,fb:'The domain bankaletihad-security.com is NOT the bank\'s domain! Fear-driven urgency is a classic phishing tactic. The real domain is bankaletihad.com.'},
+         {text:'This is a real security alert — change your password via the link.',correct:false,fb:'Never change passwords via email links! The domain bankaletihad-security.com is a phishing site designed to capture your credentials.'},
+         {text:'Report as phishing — the verification domain is fake.',correct:true,fb:'Correct! bankaletihad-security.com is a fake domain. Real alerts come from bankaletihad.com. Fear of account compromise is a powerful phishing trigger.'},
+         {text:'Ignore it — security sends too many alerts.',correct:false,fb:'Never ignore security alerts! But verify through official channels. Report this fake one so SOC can block the domain.'}]},
+  {from:'windowsdefender@microsoft.com',subject:'Windows Defender scan results — 0 threats found',
+   body:'"Windows Defender Monthly Summary\n\nDevice: DESKTOP-BAE-042\nScan date: 12 May 2026\nThreats found: 0\nReal-time protection: Active\nLast definition update: 12 May 2026\n\nNo action required.\n\nMicrosoft Security"',
+   opts:[{text:'Phishing — Microsoft doesn\'t send scan reports by email.',correct:false,fb:'Actually, Windows Defender can send email summaries in enterprise environments. This is a legitimate automated report — no links, no action requested.'},
+         {text:'Legitimate — no action needed, it\'s just an automated report.',correct:true,fb:'Correct! This is a legitimate automated security report. No suspicious links, no urgency, no action requested. Not every email is phishing!'},
+         {text:'Click to see the full scan details.',correct:false,fb:'There\'s no link to click — this is just an informational summary. That\'s actually a sign it\'s legitimate.'},
+         {text:'Report it just to be safe.',correct:false,fb:'This is legitimate. Over-reporting wastes SOC time and creates alert fatigue. Learn to recognise genuine automated reports.'}]},
+  {from:'swift-ops@bankofnewyork.com',subject:'SWIFT MT103 confirmation — Ref: BAE20260513',
+   body:'"Dear Operations,\n\nPlease confirm receipt of MT103 (Ref: BAE20260513) for USD 1,250,000 credited to your nostro account.\n\nDetails in the attached SWIFT confirmation: MT103_BAE20260513.html\n\nPlease acknowledge within 2 business hours per SLA.\n\nBNY Mellon SWIFT Operations"',
+   opts:[{text:'Open the HTML attachment to verify the SWIFT message.',correct:false,fb:'.html attachments are extremely dangerous — they can contain credential-stealing JavaScript. Real SWIFT confirmations come through the SWIFT network, not email attachments.'},
+         {text:'This looks routine — forward to the operations team.',correct:false,fb:'Forwarding spreads the malicious .html attachment. SWIFT messages arrive via the SWIFT terminal, not email.'},
+         {text:'Suspicious — real SWIFT messages come via the SWIFT terminal, not email. Report to SOC.',correct:true,fb:'Correct! SWIFT messages are delivered through the SWIFT network/terminal — never as email attachments. The .html attachment likely contains credential-stealing code.'},
+         {text:'Reply to confirm receipt as requested.',correct:false,fb:'Never reply to verify suspicious emails. The "2-hour SLA" pressure is designed to make you act before thinking.'}]}
+];
+let phishIdx=0;
+function loadPhishEmail(idx){
+  if(idx>=phishEmails.length)return;
+  const e=phishEmails[idx];
+  document.getElementById('phishNum').textContent=idx+1;
+  const letters=['A','B','C','D'];
+  let html='<div class="quiz-prompt">From: <span class="mono" style="color:var(--bae-orange)">'+e.from+'</span></div>';
+  html+='<div class="quiz-prompt" style="font-size:16px">Subject: <em>"'+e.subject+'"</em></div>';
+  html+='<div class="quiz-scenario">'+e.body.replace(/\n/g,'<br>')+'</div>';
+  html+='<div class="quiz-options">';
+  e.opts.forEach((o,i)=>{
+    html+='<button class="quiz-opt" onclick="answerPhish('+idx+',this,'+o.correct+',\''+o.fb.replace(/'/g,"\\'").replace(/"/g,'&quot;')+"')\"><div class=\"letter\">"+letters[i]+'</div>'+o.text+'</button>';
+  });
+  html+='</div><div class="quiz-feedback" id="phish'+idx+'Feedback"></div>';
+  document.getElementById('phishContent').innerHTML=html;
+}
+loadPhishEmail(0);
 function answerPhish(idx,btn,correct,explanation){
   const qId='phish'+idx;
   if(answered[qId])return;
@@ -1439,9 +1479,54 @@ function answerPhish(idx,btn,correct,explanation){
   if(correct)addScore(10,'PHISH-SPOTTER');
   else addScore(-5);
   document.getElementById('scoreBoard').style.display='block';
+  if(idx<phishEmails.length-1){
+    setTimeout(()=>{phishIdx=idx+1;loadPhishEmail(phishIdx)},2200);
+  }
 }
 
-// =================== SOCIAL ENGINEERING GAME ===================
+// =================== SOCIAL ENGINEERING GAME (5 calls) ===================
+const seScenarios=[
+  {tag:'📞 Unknown internal extension',scene:'"Hi, this is Ahmed from IT Security. We detected unusual login activity on your account. I need your employee ID and current password to verify it\'s really you and lock down the breach. This is urgent — the attacker is active right now."',
+   opts:[{text:'Give your employee ID and password — it\'s urgent.',correct:false,fb:'Never give your password over the phone! IT will never ask for your password — this is social engineering.'},
+         {text:'Give only your employee ID, not the password.',correct:false,fb:'Giving just your employee ID still gives the attacker information. Verify the caller first.'},
+         {text:'Hang up. Call IT Security on the official number.',correct:true,fb:'Correct! Hang up and call IT Security on the known internal number. Real IT never asks for passwords over the phone.'},
+         {text:'Put them on hold and ask your colleague.',correct:false,fb:'Putting them on hold doesn\'t verify them. They could social engineer a colleague who picks up.'}]},
+  {tag:'📞 External — "Central Bank of Jordan"',scene:'"This is Inspector Tariq from CBJ Banking Supervision. We are conducting an urgent audit of your anti-money laundering controls. I need you to read me the last 5 SWIFT transaction reference numbers from today. This is a regulatory requirement — non-compliance will result in penalties."',
+   opts:[{text:'Read the SWIFT references — CBJ has authority over the bank.',correct:false,fb:'CBJ audits are scheduled and conducted on-site with proper documentation. They never call and demand data over the phone.'},
+         {text:'Ask for the inspector\'s CBJ employee number to verify.',correct:false,fb:'Even with an employee number, you cannot verify it over the phone. This is a pretexting attack using authority.'},
+         {text:'Decline, inform your compliance officer, and report to SOC.',correct:true,fb:'Correct! CBJ never requests transaction data by phone. All regulatory requests come through official channels with written documentation. Report the social engineering attempt.'},
+         {text:'Transfer the call to your manager.',correct:false,fb:'Transferring just moves the attack to another target. Decline and escalate through proper channels.'}]},
+  {tag:'📞 External — "IT Vendor Support"',scene:'"Hi, I\'m calling from Oracle support. We\'ve detected a critical vulnerability in your core banking system. Our engineers need remote access to patch it immediately or you risk a complete system failure within the hour. Can you provide the VPN credentials or TeamViewer access?"',
+   opts:[{text:'Give remote access — a system failure would be catastrophic.',correct:false,fb:'Vendors never cold-call requesting VPN or remote access credentials. All vendor access goes through a documented change management process.'},
+         {text:'Ask them to send an email with the vulnerability details.',correct:false,fb:'Asking them to send details validates the social engineering. Never engage — the email they send will likely contain malware.'},
+         {text:'Hang up. Verify through your vendor management team and the official Oracle support portal.',correct:true,fb:'Correct! Vendors never request emergency remote access by phone. All access follows change management. Verify through your vendor management contacts.'},
+         {text:'Give them limited read-only access just to check.',correct:false,fb:'Any level of access can be exploited. Even "read-only" can be used for reconnaissance. Never provide access based on an inbound call.'}]},
+  {tag:'📞 Internal extension 4401 — "Executive Assistant"',scene:'"Hi, this is Sara — Dr. Mahmoud\'s executive assistant. He\'s on a flight to Dubai and just texted me. He urgently needs you to process a JOD 85,000 transfer to a new supplier before the wire cutoff at 15:00. He said to use the details I\'m about to give you. Can you take them down?"',
+   opts:[{text:'Take the details — the CEO\'s assistant is trusted.',correct:false,fb:'Even if Sara is a real assistant, the request bypasses dual-authorization controls. Phone-initiated wire transfers are a major fraud vector.'},
+         {text:'Process it but with a lower amount as a test first.',correct:false,fb:'Processing any amount based on a phone call violates wire transfer policy. The attacker gets paid regardless of the amount.'},
+         {text:'Decline the phone request. Wire transfers require written authorization through the proper system.',correct:true,fb:'Correct! Wire transfers cannot be initiated by phone. They require written, dual-authorized requests through the banking system. The "flight" excuse prevents callback verification — a classic tactic.'},
+         {text:'Call Dr. Mahmoud directly to confirm.',correct:false,fb:'Good instinct, but "he\'s on a flight" was designed to prevent this. The correct answer is that wire transfers simply cannot be processed via phone requests.'}]},
+  {tag:'📞 External — "Jordan Police Cybercrime Unit"',scene:'"This is Lieutenant Khaled from the Cybercrime Unit, Jordan PSD. We have an active investigation into a fraud ring targeting your bank\'s customers. I need you to pull up and read me the account details for three customers so we can freeze their funds before the criminals move the money. Time is critical — lives may be at stake."',
+   opts:[{text:'Provide the information — police have legal authority.',correct:false,fb:'Police requests for customer data MUST come through your legal/compliance department with proper court orders. Phone requests are never valid.'},
+         {text:'Ask for a badge number and case reference.',correct:false,fb:'Badge numbers can be fabricated. The process matters more than the credentials — all police data requests go through legal.'},
+         {text:'Refuse. Direct them to your legal/compliance department for proper data request procedures.',correct:true,fb:'Correct! Customer data cannot be disclosed over the phone to anyone. Police must submit formal requests through your legal department with proper court authorization. Emotional urgency ("lives at stake") is a manipulation tactic.'},
+         {text:'Provide only the names, not the full account details.',correct:false,fb:'Any customer data disclosure over the phone violates data protection regulations. Even names confirm account existence.'}]}
+];
+let seIdx=0;
+function loadSEScenario(idx){
+  if(idx>=seScenarios.length)return;
+  const s=seScenarios[idx];
+  document.getElementById('seNum').textContent=idx+1;
+  const letters=['A','B','C','D'];
+  let html='<div class="quiz-scenario" style="border-left-color:var(--amber)">'+s.tag+'\n\n'+s.scene+'</div>';
+  html+='<div class="quiz-prompt">What do you do?</div><div class="quiz-options">';
+  s.opts.forEach((o,i)=>{
+    html+='<button class="quiz-opt" onclick="answerSE('+idx+',this,'+o.correct+',\''+o.fb.replace(/'/g,"\\'").replace(/"/g,'&quot;')+"')\"><div class=\"letter\">"+letters[i]+'</div>'+o.text+'</button>';
+  });
+  html+='</div><div class="quiz-feedback" id="se'+idx+'Feedback"></div>';
+  document.getElementById('seContent').innerHTML=html;
+}
+loadSEScenario(0);
 function answerSE(idx,btn,correct,explanation){
   const qId='se'+idx;
   if(answered[qId])return;
@@ -1453,8 +1538,11 @@ function answerSE(idx,btn,correct,explanation){
   fb.className='quiz-feedback show '+(correct?'correct':'wrong');
   fb.innerHTML='<strong>'+(correct?'✓ Correct!':'✗ Compromised!')+'</strong> '+explanation;
   updateStreak(correct);
-  if(correct)addScore(20,'SE-DEFENDER');
+  if(correct)addScore(10,'SE-DEFENDER');
   document.getElementById('scoreBoard').style.display='block';
+  if(idx<seScenarios.length-1){
+    setTimeout(()=>{seIdx=idx+1;loadSEScenario(seIdx)},2200);
+  }
 }
 
 // =================== RANSOMWARE DECISION TREE ===================
@@ -1512,6 +1600,67 @@ function loadRansomStep(idx){
   });
   html+='</div><div class="quiz-feedback" id="ransom'+idx+'Feedback"></div>';
   container.innerHTML=html;
+}
+
+// =================== TABLETOP SCENARIOS (5) ===================
+const tabletopScenarios=[
+  {title:'SITUATION — 14:32 THURSDAY',scene:'• Customer on phone: 3 unauthorised transfers in the last hour\n• Treasury: similar pattern on 4 other accounts\n• SOC dashboard: no current alerts\n• Manager in meeting, not answering',
+   opts:[{text:'Reassure the customer and promise reversal.',correct:false,fb:'Calming the customer matters but containment first. CSIRT process: Detect → Contain → Eradicate → Recover → Learn.'},
+         {text:'Call the CSIRT hotline immediately.',correct:true,fb:'Correct! Multiple affected accounts = systemic incident. CSIRT hotline triggers lockdown, freeze, and CBJ notification within 72h.'},
+         {text:'Wait for manager to call back.',correct:false,fb:'Don\'t wait for your manager. CBJ requires notification within 72 hours. Escalate to CSIRT — they will involve your manager.'},
+         {text:'Post warning on social media.',correct:false,fb:'Public posting during an active incident is catastrophic. Only the CISO communicates externally.'}]},
+  {title:'SITUATION — 09:15 SUNDAY, ATM OPERATIONS',scene:'• A branch technician discovers a skimming device on 2 ATMs\n• The devices appear professionally installed — possibly there for weeks\n• Card transaction logs show unusual patterns on those ATMs\n• 3 customers have already reported fraudulent charges this morning\n• The local press is calling the branch asking about "ATM fraud"',
+   opts:[{text:'Remove the skimming devices immediately to protect customers.',correct:false,fb:'Removing devices destroys forensic evidence. Secure the scene, disable the ATMs, but preserve evidence for investigation.'},
+         {text:'Disable affected ATMs, preserve evidence, activate CSIRT, and notify card schemes.',correct:true,fb:'Correct! Disable ATMs to stop further compromise, preserve physical evidence for law enforcement, activate CSIRT for full investigation, and notify Visa/Mastercard to block affected cards.'},
+         {text:'Run a full scan of all ATMs in the network first.',correct:false,fb:'Scanning all ATMs is important but not the first step. The immediate priority is to stop the active compromise and preserve evidence.'},
+         {text:'Issue a press statement to control the narrative.',correct:false,fb:'PR response comes AFTER containment and only through the CISO/communications officer. Never respond to media during active investigation.'}]},
+  {title:'SITUATION — 22:00 WEDNESDAY, SOC ALERT',scene:'• SIEM flags large data export: 2.4 GB transferred to a personal cloud drive\n• Source: a senior relationship manager\'s workstation\n• Data includes high-net-worth customer portfolios and contact details\n• The employee is still logged in and has been working late\n• HR confirms the employee submitted a resignation last week',
+   opts:[{text:'Confront the employee immediately at their desk.',correct:false,fb:'Direct confrontation risks evidence destruction. The employee could wipe their device or delete the cloud files.'},
+         {text:'Disable their access silently, preserve logs, notify HR and Legal, and secure forensic evidence.',correct:true,fb:'Correct! Silent containment preserves evidence. Disable access, take forensic image of the workstation, secure cloud account logs, involve HR/Legal for the employment aspect, and law enforcement if warranted.'},
+         {text:'Let them finish and monitor — they might have a legitimate reason.',correct:false,fb:'2.4 GB of customer data to a personal cloud is never legitimate, especially after a resignation. Every minute of delay means more data exposed.'},
+         {text:'Send a company-wide email warning about data theft policies.',correct:false,fb:'This would alert the insider and give them time to cover tracks. Handle quietly through proper channels.'}]},
+  {title:'SITUATION — 07:30 MONDAY, ONLINE BANKING',scene:'• Online banking is experiencing severe slowness — page loads taking 45 seconds\n• Customer complaints flooding call centre: "Can\'t access my account"\n• SOC identifies a DDoS attack — 50 Gbps hitting the web application firewall\n• Corporate banking clients need to process payroll today\n• The attack traffic appears to come from a botnet across 12 countries',
+   opts:[{text:'Shut down online banking completely until the attack stops.',correct:false,fb:'Complete shutdown means the attacker wins — total denial of service. Use mitigation techniques to maintain partial service.'},
+         {text:'Activate DDoS mitigation (CDN scrubbing), switch to backup links, alert ISP, and communicate to customers.',correct:true,fb:'Correct! Activate CDN/scrubbing services to filter attack traffic, switch to backup internet links, coordinate with your ISP, enable rate limiting, and proactively communicate service status to customers.'},
+         {text:'Try to trace and block the attacking IP addresses.',correct:false,fb:'DDoS attacks use thousands of IPs from a botnet across 12 countries. Manual IP blocking is futile — you need automated scrubbing services.'},
+         {text:'Negotiate with the attackers if they send a ransom demand.',correct:false,fb:'Never negotiate with DDoS attackers. Payment encourages future attacks. Use technical mitigation instead.'}]},
+  {title:'SITUATION — 15:45 THURSDAY, VENDOR MANAGEMENT',scene:'• Your payment processing vendor emails: "We experienced a security incident"\n• They confirm attackers had access to their systems for 2 weeks\n• Your bank sends ~40,000 transactions daily through this vendor\n• The vendor cannot yet confirm if your data was compromised\n• Customers are starting to post on social media about suspicious charges',
+   opts:[{text:'Wait for the vendor\'s full investigation report before taking action.',correct:false,fb:'Waiting means 2+ more weeks of potential exposure. The bank must act independently to protect its customers.'},
+         {text:'Immediately terminate the vendor contract to show decisive action.',correct:false,fb:'Abruptly terminating disrupts all payment processing for 40,000 daily transactions. You need controlled migration, not panic.'},
+         {text:'Activate incident response: assess exposure, monitor transactions, prepare customer notification, and begin vendor migration planning.',correct:true,fb:'Correct! Assume compromise and act accordingly: identify affected transactions, enhance fraud monitoring, prepare CBJ notification, notify impacted customers per PDPL, and begin contingency planning for vendor migration.'},
+         {text:'Issue a public statement denying any customer data was affected.',correct:false,fb:'You cannot deny what you don\'t know yet. Premature denial destroys trust if data exposure is later confirmed. Investigate first, then communicate transparently.'}]}
+];
+let tabIdx=0;
+function loadTabletop(idx){
+  if(idx>=tabletopScenarios.length)return;
+  const s=tabletopScenarios[idx];
+  document.getElementById('tabletopNum').textContent=idx+1;
+  const letters=['A','B','C','D'];
+  let html='<div class="quiz-scenario">'+s.title+'\n\n'+s.scene.replace(/\n/g,'<br>')+'</div>';
+  html+='<div class="quiz-options">';
+  s.opts.forEach((o,i)=>{
+    html+='<button class="quiz-opt" onclick="answerTab('+idx+',this,'+o.correct+',\''+o.fb.replace(/'/g,"\\'").replace(/"/g,'&quot;')+"')\"><div class=\"letter\">"+letters[i]+'</div>'+o.text+'</button>';
+  });
+  html+='</div><div class="quiz-feedback" id="tab'+idx+'Feedback"></div>';
+  document.getElementById('tabletopContent').innerHTML=html;
+}
+loadTabletop(0);
+function answerTab(idx,btn,correct,explanation){
+  const qId='tab'+idx;
+  if(answered[qId])return;
+  answered[qId]=true;
+  const opts=btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>{o.style.pointerEvents='none'});
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById(qId+'Feedback');
+  fb.className='quiz-feedback show '+(correct?'correct':'wrong');
+  fb.innerHTML='<strong>'+(correct?'✓ Right call!':'✗ Wrong call.')+'</strong> '+explanation;
+  updateStreak(correct);
+  if(correct)addScore(10,idx===0?'FIRST-RESPONDER':null);
+  document.getElementById('scoreBoard').style.display='block';
+  if(idx<tabletopScenarios.length-1){
+    setTimeout(()=>{tabIdx=idx+1;loadTabletop(tabIdx)},2200);
+  }
 }
 
 // =================== PASSWORD FORTRESS ===================
