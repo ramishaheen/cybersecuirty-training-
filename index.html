@@ -1522,10 +1522,11 @@ function runPIIFilter(){
 // =================== DRAG & DROP THREAT CLASSIFIER ===================
 let classifyTimerInterval=null;
 let classifyTimeLeft=60;
-function dragStart(e){e.dataTransfer.setData('text/plain',e.target.id)}
+function dragStart(e){if(answered['classify']||classifyTimeLeft<=0){e.preventDefault();return}e.dataTransfer.setData('text/plain',e.target.id)}
 function dragOver(e){e.preventDefault();e.currentTarget.classList.add('dragover')}
 function dropItem(e,zone){
   e.preventDefault();e.currentTarget.classList.remove('dragover');
+  if(answered['classify']||classifyTimeLeft<=0)return;
   const id=e.dataTransfer.getData('text/plain');
   const el=document.getElementById(id);
   if(!el||el.classList.contains('placed'))return;
@@ -1616,6 +1617,7 @@ function startMatchGame(){
   },1000);
 }
 function selectMatch(btn,type){
+  if(answered['match']||matchTimeLeft<=0)return;
   if(btn.classList.contains('correct'))return;
   if(matchSelected&&matchSelected.type===type){
     matchSelected.btn.style.borderColor='rgba(250,100,40,0.2)';
