@@ -703,9 +703,9 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
 
     <!-- ===== SLIDE 6: GAME 1 — ARE YOU HACKED? ===== -->
     <section class="slide">
-      <div class="eyebrow">Module 02 · Game · 10 pts</div>
+      <div class="eyebrow">Module 02 · Game · 40 pts</div>
       <h2 class="section">Are You <em>Hacked?</em></h2>
-      <p class="lede">A teller walks in Monday morning. Five things feel "off". What does a trained banker see?</p>
+      <p class="lede">Four real-world scenarios. Spot the threat, pick the right action. Each worth 10 pts.</p>
       <div class="quiz-container">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
           <div class="score-pill">Scenario <span class="pts">1</span></div>
@@ -726,6 +726,75 @@ h2.section em{font-style:italic;color:var(--bae-orange)}
           <button class="quiz-opt" onclick="answerQ('q1',this,false,'A .exe disguised as invoice is extremely dangerous. Combined with the other signs, disconnect immediately.')"><div class="letter">D</div>None are serious — probably a Windows update.</button>
         </div>
         <div class="quiz-feedback" id="q1Feedback"></div>
+      </div>
+
+      <!-- Scenario 2: BEC / CEO Fraud -->
+      <div class="quiz-container" style="margin-top:28px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div class="score-pill">Scenario <span class="pts">2</span></div>
+          <div class="score-pill">Worth <span class="pts">10 pts</span></div>
+        </div>
+        <div class="quiz-scenario">SCENE — WEDNESDAY 14:22, TREASURY DESK
+
+• Email from "CEO" requests an urgent wire transfer of $420,000 to a new supplier
+• The sender domain is ceo@bank-aletihad.com (note: real domain is bankaletihad.com)
+• Message says "Do NOT call me — I'm in a board meeting, just process it"
+• The beneficiary account is in a country Bank Al Etihad has never dealt with
+• Email signature looks identical to the real CEO's signature</div>
+        <div class="quiz-prompt">What type of attack is this, and what is the FIRST thing you should do?</div>
+        <div class="quiz-options" id="q2Options">
+          <button class="quiz-opt" onclick="answerQ('q2',this,false,'Processing the wire based on email alone violates dual-authorization policy. The urgency and &quot;don\'t call me&quot; are classic BEC red flags.')"><div class="letter">A</div>It looks legitimate — process the wire since the CEO asked.</button>
+          <button class="quiz-opt" onclick="answerQ('q2',this,false,'Replying to the spoofed email means you are still communicating with the attacker, not the real CEO.')"><div class="letter">B</div>Reply to the email asking for more details before processing.</button>
+          <button class="quiz-opt" onclick="answerQ('q2',this,true,'Correct! This is a Business Email Compromise (BEC) attack — the #1 threat to banks. The spoofed domain, urgency, &quot;don\'t call me&quot; pressure, and unfamiliar beneficiary are textbook red flags. Always verify via a separate known channel.')"><div class="letter">C</div>This is BEC — call the CEO on a known phone number to verify before any action.</button>
+          <button class="quiz-opt" onclick="answerQ('q2',this,false,'Forwarding a suspicious email can spread the attack. Verify first via phone, then report to SOC.')"><div class="letter">D</div>Forward the email to the finance team so more people can review it.</button>
+        </div>
+        <div class="quiz-feedback" id="q2Feedback"></div>
+      </div>
+
+      <!-- Scenario 3: CIA Pillars in Practice -->
+      <div class="quiz-container" style="margin-top:28px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div class="score-pill">Scenario <span class="pts">3</span></div>
+          <div class="score-pill">Worth <span class="pts">10 pts</span></div>
+        </div>
+        <div class="quiz-scenario">SCENE — THURSDAY 10:45, OPERATIONS CENTER
+
+• Online banking portal is DOWN — customers cannot access accounts for 2 hours
+• Investigation reveals a DDoS attack targeting your web servers
+• Meanwhile, a teller shares a customer's account statement via personal WhatsApp to "help faster"
+• The core banking system shows a transaction was modified AFTER approval — amount changed from JOD 500 to JOD 50,000
+• No audit trail exists for the modification</div>
+        <div class="quiz-prompt">Which of the five security pillars (C-I-A-N-Z) are being violated here?</div>
+        <div class="quiz-options" id="q3Options">
+          <button class="quiz-opt" onclick="answerQ('q3',this,false,'The DDoS breaks Availability, but the WhatsApp leak breaks Confidentiality and the modified transaction breaks Integrity and Non-Repudiation too.')"><div class="letter">A</div>Only Availability — the portal is down, that is the main problem.</button>
+          <button class="quiz-opt" onclick="answerQ('q3',this,false,'Those two are violated, but the missing audit trail also breaks Non-Repudiation — no one can prove who made the change.')"><div class="letter">B</div>Confidentiality and Integrity only.</button>
+          <button class="quiz-opt" onclick="answerQ('q3',this,true,'Correct! All four are violated: Confidentiality (WhatsApp leak), Integrity (modified transaction), Availability (DDoS downtime), and Non-Repudiation (no audit trail). This scenario shows why all pillars matter simultaneously.')"><div class="letter">C</div>Confidentiality, Integrity, Availability, AND Non-Repudiation — four pillars breached at once.</button>
+          <button class="quiz-opt" onclick="answerQ('q3',this,false,'Zero Trust is a design principle (verify every session). While it should be applied, the active violations here are C, I, A, and N.')"><div class="letter">D</div>Only Zero Trust — the teller was not verified before sharing data.</button>
+        </div>
+        <div class="quiz-feedback" id="q3Feedback"></div>
+      </div>
+
+      <!-- Scenario 4: Insider Threat + Supply Chain -->
+      <div class="quiz-container" style="margin-top:28px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div class="score-pill">Scenario <span class="pts">4</span></div>
+          <div class="score-pill">Worth <span class="pts">10 pts</span></div>
+        </div>
+        <div class="quiz-scenario">SCENE — SUNDAY 07:50, IT DEPARTMENT
+
+• A vendor's remote-access tool used for ATM maintenance received a "critical update" overnight
+• The update was pushed automatically from the vendor's compromised build server
+• After the update, 14 ATMs began transmitting card data to an external IP address
+• An IT staff member noticed but delayed reporting for 3 days, hoping to "fix it quietly"
+• By the time SOC was informed, 2,400 card numbers had been exfiltrated</div>
+        <div class="quiz-prompt">This scenario combines two of the top 5 threats facing Jordanian banks. Which two?</div>
+        <div class="quiz-options" id="q4Options">
+          <button class="quiz-opt" onclick="answerQ('q4',this,false,'While ransomware is a top threat, this scenario involves data exfiltration through a compromised vendor tool, not encryption or ransom demands.')"><div class="letter">A</div>Ransomware-as-a-Service and Deepfake Social Engineering.</button>
+          <button class="quiz-opt" onclick="answerQ('q4',this,true,'Correct! The vendor\'s compromised build server is a textbook Supply-Chain Compromise (#4 threat). The IT staff member delaying the report is Insider negligence / Privilege Abuse (#3 threat). Together they multiplied the damage from hours to days.')"><div class="letter">B</div>Supply-Chain Compromise (vendor's build server hacked) and Insider Privilege Abuse (delayed reporting).</button>
+          <button class="quiz-opt" onclick="answerQ('q4',this,false,'BEC involves email impersonation for wire fraud. This attack came through a compromised software supply chain, not email.')"><div class="letter">C</div>Business Email Compromise and Supply-Chain Compromise.</button>
+          <button class="quiz-opt" onclick="answerQ('q4',this,false,'No AI-cloned voices or social engineering were used. The attack vector was a compromised vendor update, and the damage was worsened by an insider\'s delayed reporting.')"><div class="letter">D</div>Deepfake Social Engineering and Insider Fraud.</button>
+        </div>
+        <div class="quiz-feedback" id="q4Feedback"></div>
       </div>
     </section>
 
