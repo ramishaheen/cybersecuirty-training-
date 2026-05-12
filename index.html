@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bank Al Etihad — Cybersecurity Essentials | Etihad Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-900:#0a1628;
+  --navy-800:#0f2042;
+  --navy-700:#142a55;
+  --navy-600:#1d3a7a;
+  --gold-500:#c9a456;
+  --gold-400:#d9b876;
+  --gold-300:#e8cf9a;
+  --ivory:#f4ecd8;
+  --paper:#fbf7ec;
+  --red:#d04848;
+  --green:#3ea676;
+  --amber:#e8a23b;
+  --ink:#0a1628;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Manrope',sans-serif;
+  background:var(--navy-900);
+  color:var(--ivory);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.app{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* === Decorative atmospheric layer === */
+.atmosphere{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(201,164,86,0.08), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 80% 90%, rgba(29,58,122,0.4), transparent 60%),
+    radial-gradient(circle at 50% 50%, rgba(20,42,85,0.3), transparent 70%);
+}
+.grain{
+  position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.18;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>");
+}
+
+/* === Slide container === */
+.deck{position:relative;width:100%;height:100%;z-index:2}
+.slide{
+  position:absolute;inset:0;
+  padding:48px 64px 88px 64px;
+  opacity:0;visibility:hidden;
+  transition:opacity .5s ease;
+  overflow-y:auto;overflow-x:hidden;
+  display:flex;flex-direction:column;
+}
+.slide.active{opacity:1;visibility:visible}
+.slide::-webkit-scrollbar{width:8px}
+.slide::-webkit-scrollbar-track{background:transparent}
+.slide::-webkit-scrollbar-thumb{background:rgba(201,164,86,0.3);border-radius:4px}
+
+/* === Top brand bar === */
+.brandbar{
+  position:fixed;top:0;left:0;right:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 64px;z-index:50;
+  background:linear-gradient(180deg,rgba(10,22,40,0.96),rgba(10,22,40,0));
+  pointer-events:none;
+}
+.brandmark{display:flex;align-items:center;gap:14px;font-family:'Fraunces',serif}
+.brandmark .crest{
+  width:34px;height:34px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold-500),var(--gold-300));
+  display:flex;align-items:center;justify-content:center;
+  color:var(--navy-900);font-weight:900;font-size:14px;
+  box-shadow:0 4px 14px rgba(201,164,86,0.35);
+}
+.brandmark .name{font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-300)}
+.brandmark .sub{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,236,216,0.5)}
+.classify{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.25em;
+  color:var(--gold-400);
+  border:1px solid rgba(201,164,86,0.4);
+  padding:6px 12px;border-radius:3px;
+  background:rgba(201,164,86,0.05);
+}
+
+/* === Bottom nav === */
+.nav{
+  position:fixed;bottom:0;left:0;right:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 64px;z-index:50;
+  background:linear-gradient(0deg,rgba(10,22,40,0.96),rgba(10,22,40,0));
+}
+.nav-left{display:flex;align-items:center;gap:18px}
+.dot-track{display:flex;gap:6px;max-width:520px;flex-wrap:wrap}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(244,236,216,0.2);cursor:pointer;transition:all .2s}
+.dot.active{background:var(--gold-400);width:18px;border-radius:3px}
+.dot:hover{background:var(--gold-300)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-btn{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.15em;
+  background:rgba(201,164,86,0.1);
+  color:var(--gold-300);
+  border:1px solid rgba(201,164,86,0.3);
+  padding:9px 16px;border-radius:4px;cursor:pointer;
+  transition:all .2s;
+  text-transform:uppercase;
+}
+.nav-btn:hover{background:rgba(201,164,86,0.25);border-color:var(--gold-400)}
+.nav-btn.primary{background:var(--gold-500);color:var(--navy-900);border-color:var(--gold-500);font-weight:700}
+.nav-btn.primary:hover{background:var(--gold-400)}
+.slide-counter{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(244,236,216,0.5);letter-spacing:.2em}
+
+/* === Typography === */
+h1.title{
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  font-size:clamp(48px,7vw,96px);
+  line-height:.95;
+  letter-spacing:-.02em;
+  color:var(--ivory);
+}
+h1.title em{font-style:italic;color:var(--gold-400);font-weight:400}
+h2.section{
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  font-size:clamp(36px,4.5vw,56px);
+  line-height:1;
+  letter-spacing:-.02em;
+  color:var(--ivory);
+  margin-bottom:24px;
+}
+h2.section em{font-style:italic;color:var(--gold-400)}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:.35em;
+  text-transform:uppercase;
+  color:var(--gold-400);
+  margin-bottom:18px;
+  display:flex;align-items:center;gap:14px;
+}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--gold-400)}
+.lede{
+  font-family:'Fraunces',serif;
+  font-weight:400;
+  font-size:clamp(20px,1.8vw,26px);
+  line-height:1.4;
+  color:rgba(244,236,216,0.85);
+  max-width:780px;
+  font-style:italic;
+}
+.body{
+  font-size:16px;line-height:1.65;
+  color:rgba(244,236,216,0.82);
+  max-width:680px;
+}
+
+/* === Cover slide === */
+.cover{
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;
+}
+.cover .meta-row{
+  display:flex;gap:48px;margin-top:48px;flex-wrap:wrap;
+}
+.meta-item{display:flex;flex-direction:column;gap:6px}
+.meta-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-400)}
+.meta-value{font-family:'Fraunces',serif;font-size:22px;color:var(--ivory)}
+.cover-ornament{
+  position:absolute;right:64px;top:50%;transform:translateY(-50%);
+  width:280px;height:280px;
+  border:1px solid rgba(201,164,86,0.25);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.cover-ornament::before{
+  content:'';position:absolute;inset:30px;
+  border:1px solid rgba(201,164,86,0.2);border-radius:50%;
+}
+.cover-ornament::after{
+  content:'';position:absolute;inset:60px;
+  border:1px dashed rgba(201,164,86,0.15);border-radius:50%;
+  animation:rotate 60s linear infinite;
+}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.cover-ornament .seal{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:14px;color:var(--gold-400);
+  text-align:center;letter-spacing:.1em;line-height:1.4;
+}
+
+/* === Agenda === */
+.agenda-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:14px;margin-top:28px;max-width:1100px;
+}
+.agenda-row{
+  display:grid;grid-template-columns:90px 1fr auto;
+  gap:18px;align-items:center;
+  padding:16px 20px;
+  background:rgba(244,236,216,0.03);
+  border:1px solid rgba(201,164,86,0.15);
+  border-radius:8px;
+  transition:all .25s;
+}
+.agenda-row:hover{
+  background:rgba(201,164,86,0.08);
+  border-color:rgba(201,164,86,0.4);
+  transform:translateX(4px);
+}
+.agenda-time{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gold-400);font-weight:500}
+.agenda-title{font-size:15px;color:var(--ivory);font-weight:500}
+.agenda-tag{
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  padding:3px 8px;border-radius:3px;letter-spacing:.15em;text-transform:uppercase;
+}
+.tag-talk{background:rgba(62,166,118,0.15);color:#7dd3a0;border:1px solid rgba(62,166,118,0.3)}
+.tag-game{background:rgba(232,162,59,0.15);color:#f0c068;border:1px solid rgba(232,162,59,0.3)}
+.tag-lab{background:rgba(208,72,72,0.15);color:#ee8888;border:1px solid rgba(208,72,72,0.3)}
+.tag-break{background:rgba(244,236,216,0.08);color:rgba(244,236,216,0.6);border:1px solid rgba(244,236,216,0.15)}
+
+/* === Two-column layouts === */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.two-col-narrow{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+
+/* === Cards === */
+.card{
+  background:linear-gradient(180deg,rgba(244,236,216,0.04),rgba(244,236,216,0.01));
+  border:1px solid rgba(201,164,86,0.18);
+  border-radius:10px;
+  padding:24px 26px;
+  position:relative;
+  backdrop-filter:blur(10px);
+}
+.card-title{
+  font-family:'Fraunces',serif;font-weight:500;font-size:22px;
+  color:var(--ivory);margin-bottom:10px;letter-spacing:-.01em;
+}
+.card-body{font-size:14px;line-height:1.6;color:rgba(244,236,216,0.75)}
+.card-num{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--gold-400);margin-bottom:14px;letter-spacing:.2em;
+}
+
+/* === Stat blocks === */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px}
+.stat{
+  padding:22px 20px;
+  border-left:2px solid var(--gold-500);
+  background:rgba(201,164,86,0.04);
+}
+.stat-big{
+  font-family:'Fraunces',serif;font-size:48px;line-height:1;
+  color:var(--gold-400);font-weight:500;
+}
+.stat-label{font-size:12px;color:rgba(244,236,216,0.7);margin-top:8px;line-height:1.4}
+
+/* === Threat carousel / list === */
+.threat-list{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.threat-item{
+  display:grid;grid-template-columns:46px 1fr auto;gap:16px;align-items:center;
+  padding:14px 18px;
+  background:rgba(244,236,216,0.03);
+  border:1px solid rgba(201,164,86,0.12);
+  border-radius:8px;
+  transition:all .2s;
+}
+.threat-item:hover{border-color:rgba(201,164,86,0.4);background:rgba(201,164,86,0.06)}
+.threat-num{
+  font-family:'Fraunces',serif;font-style:italic;font-size:24px;
+  color:var(--gold-400);text-align:center;
+}
+.threat-name{font-weight:600;font-size:15px;color:var(--ivory)}
+.threat-desc{font-size:13px;color:rgba(244,236,216,0.65);margin-top:3px}
+.threat-sev{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:4px 10px;border-radius:3px;letter-spacing:.15em;
+}
+.sev-critical{background:rgba(208,72,72,0.2);color:#ee8888}
+.sev-high{background:rgba(232,162,59,0.2);color:#f0c068}
+.sev-medium{background:rgba(62,166,118,0.2);color:#7dd3a0}
+
+/* === Game / quiz UI === */
+.quiz-container{
+  max-width:920px;margin-top:16px;
+  background:linear-gradient(180deg,rgba(20,42,85,0.4),rgba(15,32,66,0.4));
+  border:1px solid rgba(201,164,86,0.25);
+  border-radius:14px;
+  padding:32px 36px;
+  backdrop-filter:blur(14px);
+}
+.quiz-prompt{
+  font-family:'Fraunces',serif;font-size:24px;line-height:1.3;
+  color:var(--ivory);margin-bottom:20px;font-weight:500;
+}
+.quiz-scenario{
+  font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;
+  background:rgba(10,22,40,0.7);
+  border-left:3px solid var(--gold-500);
+  padding:18px 22px;border-radius:6px;
+  color:rgba(244,236,216,0.85);
+  margin-bottom:22px;
+  white-space:pre-line;
+}
+.quiz-options{display:flex;flex-direction:column;gap:10px}
+.quiz-opt{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px;
+  background:rgba(244,236,216,0.04);
+  border:1px solid rgba(201,164,86,0.2);
+  border-radius:8px;cursor:pointer;
+  font-size:14px;color:var(--ivory);
+  transition:all .2s;text-align:left;
+}
+.quiz-opt:hover{background:rgba(201,164,86,0.08);border-color:var(--gold-400);transform:translateX(4px)}
+.quiz-opt .letter{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(201,164,86,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:var(--gold-400);font-weight:700;flex-shrink:0;
+}
+.quiz-opt.correct{background:rgba(62,166,118,0.15);border-color:var(--green)}
+.quiz-opt.correct .letter{background:var(--green);color:white}
+.quiz-opt.wrong{background:rgba(208,72,72,0.12);border-color:var(--red)}
+.quiz-opt.wrong .letter{background:var(--red);color:white}
+.quiz-feedback{
+  margin-top:18px;padding:16px 20px;
+  border-radius:8px;font-size:14px;line-height:1.6;
+  display:none;
+}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct{background:rgba(62,166,118,0.1);border:1px solid rgba(62,166,118,0.3);color:#a8e8c8}
+.quiz-feedback.wrong{background:rgba(208,72,72,0.1);border:1px solid rgba(208,72,72,0.3);color:#f5b8b8}
+.score-pill{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(201,164,86,0.12);
+  border:1px solid rgba(201,164,86,0.4);
+  padding:8px 16px;border-radius:20px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:var(--gold-300);
+}
+.score-pill .pts{color:var(--gold-400);font-weight:700;font-size:14px}
+
+/* === Live tools === */
+.tool-pane{
+  background:linear-gradient(180deg,rgba(20,42,85,0.5),rgba(15,32,66,0.5));
+  border:1px solid rgba(201,164,86,0.25);
+  border-radius:14px;
+  padding:28px 32px;
+  backdrop-filter:blur(14px);
+  margin-top:16px;
+}
+.tool-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--gold-400);
+  margin-bottom:10px;
+}
+.tool-input{
+  width:100%;
+  background:rgba(10,22,40,0.7);
+  border:1px solid rgba(201,164,86,0.3);
+  border-radius:8px;
+  padding:14px 16px;
+  color:var(--ivory);font-family:'Manrope',sans-serif;font-size:14px;
+  resize:vertical;
+  min-height:90px;
+}
+.tool-input:focus{outline:none;border-color:var(--gold-400)}
+.tool-btn{
+  background:var(--gold-500);color:var(--navy-900);
+  border:none;border-radius:6px;
+  padding:10px 22px;cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;font-weight:700;
+  margin-top:12px;transition:background .2s;
+}
+.tool-btn:hover{background:var(--gold-400)}
+.tool-output{
+  margin-top:18px;
+  background:rgba(10,22,40,0.7);
+  border:1px solid rgba(201,164,86,0.2);
+  border-radius:8px;
+  padding:16px 18px;
+  font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:rgba(244,236,216,0.9);
+  line-height:1.7;
+  min-height:60px;
+  white-space:pre-wrap;word-break:break-word;
+}
+.pii-tag{
+  display:inline-block;
+  background:rgba(208,72,72,0.25);
+  color:#ffc4c4;
+  padding:1px 8px;border-radius:3px;
+  font-weight:700;
+  border:1px solid rgba(208,72,72,0.4);
+}
+.pii-redacted{
+  display:inline-block;
+  background:rgba(62,166,118,0.25);
+  color:#a8e8c8;
+  padding:1px 8px;border-radius:3px;
+  font-weight:700;
+  border:1px solid rgba(62,166,118,0.4);
+}
+
+/* === Daily Intel Hub === */
+.intel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.intel-card{
+  background:linear-gradient(180deg,rgba(244,236,216,0.04),rgba(244,236,216,0.01));
+  border:1px solid rgba(201,164,86,0.2);
+  border-radius:10px;
+  padding:20px 22px;
+  transition:all .25s;
+  display:flex;flex-direction:column;
+  min-height:180px;
+}
+.intel-card:hover{border-color:var(--gold-400);transform:translateY(-3px);box-shadow:0 8px 24px rgba(201,164,86,0.1)}
+.intel-source{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.25em;color:var(--gold-400);
+  margin-bottom:8px;text-transform:uppercase;
+}
+.intel-title{
+  font-family:'Fraunces',serif;font-size:18px;line-height:1.25;
+  color:var(--ivory);font-weight:500;margin-bottom:8px;
+}
+.intel-desc{font-size:12px;line-height:1.55;color:rgba(244,236,216,0.7);flex:1}
+.intel-link{
+  margin-top:12px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.18em;color:var(--gold-300);
+  text-decoration:none;text-transform:uppercase;
+  border-top:1px solid rgba(201,164,86,0.2);
+  padding-top:10px;
+}
+.intel-link:hover{color:var(--gold-400)}
+
+/* === Pillars / framework === */
+.pillar-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:24px}
+.pillar{
+  padding:24px 20px;
+  background:linear-gradient(180deg,rgba(244,236,216,0.05),rgba(244,236,216,0.01));
+  border:1px solid rgba(201,164,86,0.2);
+  border-radius:10px;
+  text-align:left;
+}
+.pillar-icon{
+  width:42px;height:42px;border-radius:8px;
+  background:rgba(201,164,86,0.12);
+  border:1px solid rgba(201,164,86,0.35);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-style:italic;font-size:22px;
+  color:var(--gold-400);
+  margin-bottom:16px;
+}
+.pillar-name{
+  font-family:'Fraunces',serif;font-size:18px;color:var(--ivory);
+  font-weight:500;margin-bottom:8px;letter-spacing:-.01em;
+}
+.pillar-desc{font-size:12px;line-height:1.55;color:rgba(244,236,216,0.7)}
+
+/* === Breach indicators === */
+.indicator-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.indicator{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 18px;
+  background:rgba(208,72,72,0.06);
+  border-left:3px solid var(--red);
+  border-radius:6px;
+}
+.indicator-num{
+  font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:var(--red);font-weight:700;
+  flex-shrink:0;width:24px;
+}
+.indicator-text{font-size:13px;line-height:1.55;color:rgba(244,236,216,0.85)}
+
+/* === Scoreboard / gamification badge === */
+.score-board{
+  position:fixed;top:80px;right:24px;z-index:40;
+  background:linear-gradient(180deg,rgba(20,42,85,0.95),rgba(15,32,66,0.95));
+  border:1px solid rgba(201,164,86,0.4);
+  border-radius:12px;
+  padding:16px 20px;
+  backdrop-filter:blur(14px);
+  font-family:'JetBrains Mono',monospace;
+  min-width:200px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+}
+.score-board-title{font-size:9px;letter-spacing:.3em;color:var(--gold-400);margin-bottom:6px}
+.score-board-num{font-family:'Fraunces',serif;font-size:36px;color:var(--gold-300);line-height:1}
+.score-board-sub{font-size:10px;color:rgba(244,236,216,0.6);margin-top:6px;letter-spacing:.15em}
+.score-board-badges{display:flex;gap:4px;margin-top:10px;flex-wrap:wrap}
+.badge{
+  font-size:9px;padding:3px 6px;border-radius:3px;
+  background:rgba(201,164,86,0.15);color:var(--gold-300);
+  letter-spacing:.1em;
+}
+
+/* === Best practices checklist === */
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.check-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 16px;
+  background:rgba(62,166,118,0.05);
+  border:1px solid rgba(62,166,118,0.2);
+  border-radius:6px;
+}
+.check-mark{
+  width:20px;height:20px;border-radius:4px;
+  background:var(--green);color:white;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;flex-shrink:0;
+  margin-top:2px;
+}
+.check-text{font-size:13px;line-height:1.5;color:rgba(244,236,216,0.85)}
+.check-text strong{color:var(--ivory)}
+
+/* === Closing slide === */
+.closing{justify-content:center;text-align:center;align-items:center}
+.closing .lede{text-align:center;margin:0 auto}
+.closing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;max-width:900px}
+.closing-cell{text-align:center;padding:18px}
+.closing-num{font-family:'Fraunces',serif;font-size:40px;color:var(--gold-400);font-weight:500}
+.closing-cell-label{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:rgba(244,236,216,0.6);margin-top:6px}
+
+/* === Compliance map === */
+.compliance-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.comp-box{
+  padding:18px;
+  background:rgba(244,236,216,0.04);
+  border:1px solid rgba(201,164,86,0.2);
+  border-radius:8px;
+}
+.comp-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold-400);letter-spacing:.2em;margin-bottom:8px}
+.comp-name{font-family:'Fraunces',serif;font-size:17px;color:var(--ivory);font-weight:500;margin-bottom:8px}
+.comp-desc{font-size:12px;line-height:1.5;color:rgba(244,236,216,0.7)}
+
+/* === Module sectioning === */
+.module-marker{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.3em;color:var(--gold-400);
+  margin-bottom:14px;
+}
+.divider{height:1px;background:linear-gradient(90deg,var(--gold-500),transparent);margin:24px 0;width:120px}
+
+/* utility */
+.flex-grow{flex:1}
+.mt-lg{margin-top:32px}
+.mt-md{margin-top:20px}
+
+/* highlight text */
+.hl{color:var(--gold-400);font-weight:600}
+.mono{font-family:'JetBrains Mono',monospace}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="atmosphere"></div>
+  <div class="grain"></div>
+
+  <!-- Brand Bar -->
+  <div class="brandbar">
+    <div class="brandmark">
+      <div class="crest">E</div>
+      <div>
+        <div class="name">Etihad Insights</div>
+        <div class="sub">Bank Al Etihad — Cybersecurity Training</div>
+      </div>
+    </div>
+    <div class="classify">CONFIDENTIAL · INTERNAL</div>
+  </div>
+
+  <!-- Score Board -->
+  <div class="score-board" id="scoreBoard" style="display:none">
+    <div class="score-board-title">CYBER ACADEMY</div>
+    <div class="score-board-num" id="totalScore">0</div>
+    <div class="score-board-sub">POINTS EARNED</div>
+    <div class="score-board-badges" id="badges"></div>
+  </div>
+
+  <!-- DECK -->
+  <div class="deck" id="deck">
+
+    <!-- ===== SLIDE 1: COVER ===== -->
+    <section class="slide active cover">
+      <div class="eyebrow">A One-Day Training Program · 08:00 — 15:00</div>
+      <h1 class="title">Cyber<em>security</em><br>Essentials for<br>Banking <em>Professionals</em></h1>
+      <div class="meta-row">
+        <div class="meta-item">
+          <div class="meta-label">Client</div>
+          <div class="meta-value">Bank Al Etihad</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Delivered by</div>
+          <div class="meta-value">Dr. Rami — Etihad Insights</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Format</div>
+          <div class="meta-value">Interactive · Gamified</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Audience</div>
+          <div class="meta-value">Financial Staff</div>
+        </div>
+      </div>
+      <div class="cover-ornament">
+        <div class="seal">EST. 2026<br>—<br>The Deep Edge<br>Programme</div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 2: AGENDA ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 00 · The Day Ahead</div>
+      <h2 class="section">Programme <em>at a glance</em></h2>
+      <p class="lede">Seven hours, eight modules, three live tools, four games, and one promise — you will leave able to spot a breach before it spots you.</p>
+      <div class="agenda-grid">
+        <div class="agenda-row"><div class="agenda-time">08:00–08:30</div><div class="agenda-title">Welcome, threat landscape briefing & ground rules</div><div class="agenda-tag tag-talk">Briefing</div></div>
+        <div class="agenda-row"><div class="agenda-time">08:30–09:30</div><div class="agenda-title">Module 1 — Why banks are Target #1</div><div class="agenda-tag tag-talk">Talk</div></div>
+        <div class="agenda-row"><div class="agenda-time">09:30–10:30</div><div class="agenda-title">Module 2 — "Are You Hacked?" detection game</div><div class="agenda-tag tag-game">Game</div></div>
+        <div class="agenda-row"><div class="agenda-time">10:30–10:45</div><div class="agenda-title">Coffee break · Daily Intel feed scan</div><div class="agenda-tag tag-break">Break</div></div>
+        <div class="agenda-row"><div class="agenda-time">10:45–11:45</div><div class="agenda-title">Module 3 — Phishing & Social engineering arena</div><div class="agenda-tag tag-game">Game</div></div>
+        <div class="agenda-row"><div class="agenda-time">11:45–12:30</div><div class="agenda-title">Module 4 — Live PII Filter lab (compliance)</div><div class="agenda-tag tag-lab">Lab</div></div>
+        <div class="agenda-row"><div class="agenda-time">12:30–13:15</div><div class="agenda-title">Lunch & Daily intel hub walkthrough</div><div class="agenda-tag tag-break">Break</div></div>
+        <div class="agenda-row"><div class="agenda-time">13:15–14:00</div><div class="agenda-title">Module 5 — Banking Cybersecurity Essentials (CBJ, PCI-DSS, Basel)</div><div class="agenda-tag tag-talk">Talk</div></div>
+        <div class="agenda-row"><div class="agenda-time">14:00–14:30</div><div class="agenda-title">Module 6 — Incident response tabletop</div><div class="agenda-tag tag-game">Game</div></div>
+        <div class="agenda-row"><div class="agenda-time">14:30–14:45</div><div class="agenda-title">Module 7 — Daily intel hub (Snyk, FS-ISAC, CBJ)</div><div class="agenda-tag tag-talk">Talk</div></div>
+        <div class="agenda-row"><div class="agenda-time">14:45–15:00</div><div class="agenda-title">Final scoreboard, awards & next-day checklist</div><div class="agenda-tag tag-game">Awards</div></div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 3: GROUND RULES ===== -->
+    <section class="slide">
+      <div class="eyebrow">Ground Rules · Gamification System</div>
+      <h2 class="section">How <em>scoring</em> works</h2>
+      <div class="two-col mt-md">
+        <div>
+          <p class="body">Every game and lab in this programme awards points. You start at <span class="hl">zero</span>. By 15:00 you'll have a personal cyber-defence score and a chance at four badges. Top three scorers receive the <em>Etihad Cyber Champion</em> certificate.</p>
+          <div class="pillar-row" style="grid-template-columns:repeat(2,1fr);margin-top:24px">
+            <div class="pillar"><div class="pillar-icon">★</div><div class="pillar-name">Spot the Phish</div><div class="pillar-desc">Identify malicious emails — 10 pts per correct flag</div></div>
+            <div class="pillar"><div class="pillar-icon">⚡</div><div class="pillar-name">First Responder</div><div class="pillar-desc">Solve the incident tabletop — up to 40 pts</div></div>
+            <div class="pillar"><div class="pillar-icon">⊕</div><div class="pillar-name">Privacy Guardian</div><div class="pillar-desc">Complete PII redaction lab — 20 pts</div></div>
+            <div class="pillar"><div class="pillar-icon">◈</div><div class="pillar-name">Compliance Ace</div><div class="pillar-desc">Full marks on CBJ/PCI quiz — 30 pts</div></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:0">
+          <div class="card-num">SCORING TIERS</div>
+          <div class="card-title">Earn your title</div>
+          <div class="card-body" style="margin-top:16px">
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed rgba(201,164,86,0.2)"><span>120+ pts</span><span class="hl">Cyber Sentinel</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed rgba(201,164,86,0.2)"><span>90–119 pts</span><span class="hl">Defender</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed rgba(201,164,86,0.2)"><span>60–89 pts</span><span class="hl">Aware</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0"><span>&lt;60 pts</span><span style="color:rgba(244,236,216,0.5)">Apprentice</span></div>
+          </div>
+          <button class="tool-btn" onclick="document.getElementById('scoreBoard').style.display='block';showToast('Scoreboard activated. Good luck.')">Activate Scoreboard</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 4: WHY BANKS ARE TARGET #1 ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 01 · The Threat Landscape</div>
+      <h2 class="section">Banks are <em>Target #1</em>. Here is why.</h2>
+      <p class="lede">Financial services suffered roughly <span class="hl">3,348</span> reported cyber incidents in 2023 — almost double the 2022 figure — and the gap is widening every quarter.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-big">300×</div><div class="stat-label">More cyber-attacks than other industries (IMF estimate)</div></div>
+        <div class="stat"><div class="stat-big">$5.9M</div><div class="stat-label">Average cost of a financial-sector breach (IBM Cost of a Breach)</div></div>
+        <div class="stat"><div class="stat-big">82%</div><div class="stat-label">Of breaches involve the human element — phishing, error, misuse</div></div>
+        <div class="stat"><div class="stat-big">277 days</div><div class="stat-label">Average time to identify and contain a breach</div></div>
+      </div>
+      <div class="mt-lg">
+        <div class="module-marker">// TOP 5 THREATS FACING JORDANIAN BANKS IN 2026</div>
+        <div class="threat-list">
+          <div class="threat-item"><div class="threat-num">01</div><div><div class="threat-name">Business Email Compromise (BEC)</div><div class="threat-desc">CEO-fraud wire transfers, vendor impersonation, supplier invoice swaps</div></div><div class="threat-sev sev-critical">CRITICAL</div></div>
+          <div class="threat-item"><div class="threat-num">02</div><div><div class="threat-name">Ransomware-as-a-Service</div><div class="threat-desc">Double extortion against core banking systems and SWIFT terminals</div></div><div class="threat-sev sev-critical">CRITICAL</div></div>
+          <div class="threat-item"><div class="threat-num">03</div><div><div class="threat-name">Insider Fraud & Privilege Abuse</div><div class="threat-desc">Misused credentials, unauthorised data exfiltration, collusion</div></div><div class="threat-sev sev-high">HIGH</div></div>
+          <div class="threat-item"><div class="threat-num">04</div><div><div class="threat-name">Supply-Chain & Third-Party Compromise</div><div class="threat-desc">Compromised SaaS vendors, npm/PyPI supply chain attacks (e.g. TanStack 2026)</div></div><div class="threat-sev sev-high">HIGH</div></div>
+          <div class="threat-item"><div class="threat-num">05</div><div><div class="threat-name">Deepfake-Enabled Social Engineering</div><div class="threat-desc">AI-cloned executive voices authorising transactions over phone</div></div><div class="threat-sev sev-high">HIGH</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 5: THE CIA TRIAD + 5 PILLARS ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 01 · Foundations</div>
+      <h2 class="section">The <em>five pillars</em> we will defend</h2>
+      <p class="lede">Every control, policy, and instinct you build today maps to one of these five pillars. Memorise them — they are the lens you'll use the rest of the day.</p>
+      <div class="pillar-row">
+        <div class="pillar"><div class="pillar-icon">C</div><div class="pillar-name">Confidentiality</div><div class="pillar-desc">Customer data, account balances, transaction history — visible only to those authorised</div></div>
+        <div class="pillar"><div class="pillar-icon">I</div><div class="pillar-name">Integrity</div><div class="pillar-desc">Transactions, ledgers, and records cannot be altered without trace</div></div>
+        <div class="pillar"><div class="pillar-icon">A</div><div class="pillar-name">Availability</div><div class="pillar-desc">ATMs, online banking, and SWIFT must stay operational under attack</div></div>
+        <div class="pillar"><div class="pillar-icon">N</div><div class="pillar-name">Non-Repudiation</div><div class="pillar-desc">Customers cannot deny actions; bank cannot deny obligations — digital signatures, audit logs</div></div>
+        <div class="pillar"><div class="pillar-icon">Z</div><div class="pillar-name">Zero Trust</div><div class="pillar-desc">Verify every user, every device, every session — internal network is no longer "safe"</div></div>
+      </div>
+      <div class="mt-lg" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+        <div>
+          <h3 style="font-family:'Fraunces',serif;font-size:24px;color:var(--ivory);font-weight:500;margin-bottom:14px">A bank is <em style="color:var(--gold-400)">three things at once</em></h3>
+          <p class="body">A bank is simultaneously a <span class="hl">vault</span>, a <span class="hl">switchboard</span>, and a <span class="hl">database</span>. Attackers target whichever is weakest. Your job is to make sure none of them are weak today.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">REGULATORY ANCHOR</div>
+          <div class="card-title">Where these pillars come from</div>
+          <div class="card-body" style="margin-top:10px">CBJ Cybersecurity Framework · ISO/IEC 27001:2022 · NIST CSF 2.0 · Basel III operational risk · PCI-DSS v4.0 · GDPR & Jordan's Personal Data Protection Law (2023)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 6: GAME 1 - ARE YOU HACKED? ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 02 · Game · 10 pts available</div>
+      <h2 class="section">Are You <em>Hacked?</em></h2>
+      <p class="lede">A teller walks in Monday morning. Five things on her workstation feel "a bit off". Read the scene carefully and pick the answer that a trained banker would.</p>
+      <div class="quiz-container">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div class="score-pill">Question <span class="pts" id="q1num">1</span> of 4</div>
+          <div class="score-pill">Worth <span class="pts">10 pts</span></div>
+        </div>
+        <div class="quiz-prompt" id="q1Prompt">Which combination of signs is the strongest indicator that her workstation has been compromised?</div>
+        <div class="quiz-scenario" id="q1Scenario">SCENE — MONDAY 08:14, BRANCH FLOOR
+
+• Mouse cursor moved on its own for ~3 seconds when she sat down
+• Browser homepage changed from intranet to a random news site
+• A new toolbar "BankHelper+" appeared in Chrome
+• Outlook prompted her to re-enter her password twice
+• A file called "invoice_Q4_FINAL.exe" sits on her Desktop</div>
+        <div class="quiz-options" id="q1Options">
+          <button class="quiz-opt" data-correct="false" onclick="answerQ('q1', this, false, 'Re-typing a password and a moving cursor alone could be glitches. But combined with the .exe file and a new toolbar, all five together are textbook compromise signs.')"><div class="letter">A</div>The cursor moved by itself — that's the only definitive sign.</button>
+          <button class="quiz-opt" data-correct="true" onclick="answerQ('q1', this, true, 'Correct. All five together — unauthorized cursor, hijacked browser, unknown extension, repeated credential prompts, and an unexpected executable — are a classic compromised-endpoint pattern. Always treat the cluster, not the single anomaly.')"><div class="letter">B</div>All five together. The cluster pattern is the giveaway.</button>
+          <button class="quiz-opt" data-correct="false" onclick="answerQ('q1', this, false, 'Browser homepage change is a sign, but on its own it might be IT pushing a policy. Look at the whole cluster.')"><div class="letter">C</div>The changed homepage — only browsers get hijacked.</button>
+          <button class="quiz-opt" data-correct="false" onclick="answerQ('q1', this, false, 'Wrong. A .exe file disguised as an invoice is one of the most dangerous payloads. Combined with the other four signs, this is a confirmed incident — disconnect the machine immediately.')"><div class="letter">D</div>None of these are serious — probably a Windows update.</button>
+        </div>
+        <div class="quiz-feedback" id="q1Feedback"></div>
+        <button class="tool-btn" onclick="nextQuestion()" id="q1Next" style="display:none;margin-top:16px">Next question →</button>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 7: INDICATORS OF COMPROMISE ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 02 · Reference</div>
+      <h2 class="section">12 signs your <em>workstation is breached</em></h2>
+      <p class="lede">Print this. Tape it under your monitor. If you see <span class="hl">three or more</span> at the same time, disconnect the network cable and call the SOC.</p>
+      <div class="indicator-grid">
+        <div class="indicator"><div class="indicator-num">01</div><div class="indicator-text"><strong>Mouse or keyboard activity</strong> when you are not touching them</div></div>
+        <div class="indicator"><div class="indicator-num">02</div><div class="indicator-text"><strong>Unknown processes</strong> or icons in your system tray</div></div>
+        <div class="indicator"><div class="indicator-num">03</div><div class="indicator-text"><strong>Browser homepage / search engine</strong> changed without consent</div></div>
+        <div class="indicator"><div class="indicator-num">04</div><div class="indicator-text"><strong>New browser extensions</strong> you did not install</div></div>
+        <div class="indicator"><div class="indicator-num">05</div><div class="indicator-text"><strong>Repeated password prompts</strong> for Outlook, VPN, intranet</div></div>
+        <div class="indicator"><div class="indicator-num">06</div><div class="indicator-text"><strong>Sudden slowness</strong>, fan spinning, disk thrashing while idle</div></div>
+        <div class="indicator"><div class="indicator-num">07</div><div class="indicator-text"><strong>Disabled antivirus</strong> or security tools you didn't disable</div></div>
+        <div class="indicator"><div class="indicator-num">08</div><div class="indicator-text"><strong>Unexpected files</strong> on Desktop or Downloads — especially .exe, .iso, .lnk</div></div>
+        <div class="indicator"><div class="indicator-num">09</div><div class="indicator-text"><strong>Pop-ups</strong> outside the browser, fake "your PC is infected" warnings</div></div>
+        <div class="indicator"><div class="indicator-num">10</div><div class="indicator-text"><strong>Sent emails</strong> in your Sent folder that you never wrote</div></div>
+        <div class="indicator"><div class="indicator-num">11</div><div class="indicator-text"><strong>Account locked</strong> messages from systems you did not log into</div></div>
+        <div class="indicator"><div class="indicator-num">12</div><div class="indicator-text"><strong>Outbound traffic</strong> warnings from firewall when you're "doing nothing"</div></div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 8: GAME 2 - PHISH OR LEGIT ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 03 · Game · 30 pts available</div>
+      <h2 class="section">Phish or <em>legit?</em></h2>
+      <p class="lede">Three emails. Each could land in your inbox tomorrow. For each one, decide: open, report, or delete. Wrong answer = -5 pts. No guessing.</p>
+      <div class="quiz-container">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div class="score-pill">Email <span class="pts">1</span> of 3</div>
+          <div class="score-pill">Worth <span class="pts">10 pts</span></div>
+        </div>
+        <div class="quiz-prompt">From: <span class="mono" style="color:#f0c068">it-support@bankaletihad-jo.com</span> · Subject: <em>"Urgent: MFA re-enrollment required by 17:00 today"</em></div>
+        <div class="quiz-scenario">"Dear colleague,
+
+Due to a security upgrade, all staff must re-enroll their multi-factor authentication TODAY by 17:00 to avoid account suspension.
+
+Click here to begin: https://aletihad-mfa-update.jo-secure.com/login
+
+Failure to comply will result in your domain account being locked tomorrow morning.
+
+Regards,
+IT Helpdesk"</div>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false" onclick="answerQ('q2', this, false, 'You just clicked a phishing link. Real Bank Al Etihad domain is bankaletihad.com — not bankaletihad-jo.com. The redirect domain jo-secure.com is also a tell. Urgency + suspended-account threat + look-alike domain = phishing.')"><div class="letter">A</div>Click the link — IT deadlines are serious.</button>
+          <button class="quiz-opt" data-correct="true" onclick="answerQ('q2', this, true, 'Correct. The domain bankaletihad-jo.com is a look-alike (the real one is bankaletihad.com). The redirect domain jo-secure.com is unfamiliar. Urgency + threat of suspension = classic phishing pressure. Report via the Outlook \"Report Phishing\" button.')"><div class="letter">B</div>Report it via the "Report Phishing" button and delete.</button>
+          <button class="quiz-opt" data-correct="false" onclick="answerQ('q2', this, false, 'Calling helpdesk is better than clicking, but forwarding the email risks others doing the click. The right answer is REPORT via the official Outlook plugin — never forward suspicious emails.')"><div class="letter">C</div>Forward it to my manager to ask what to do.</button>
+          <button class="quiz-opt" data-correct="false" onclick="answerQ('q2', this, false, 'Ignoring leaves the threat in your inbox and others might still click. Reporting helps the SOC block the campaign for everyone.')"><div class="letter">D</div>Ignore it — if it's real, IT will follow up.</button>
+        </div>
+        <div class="quiz-feedback" id="q2Feedback"></div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 9: PHISHING RED FLAGS ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 03 · Reference</div>
+      <h2 class="section">The <em>SLAM</em> method</h2>
+      <p class="lede">Before clicking, hover, or replying to <span class="hl">any</span> email — run the SLAM check. Four seconds. Four letters. Saves millions.</p>
+      <div class="pillar-row" style="grid-template-columns:repeat(4,1fr);margin-top:24px">
+        <div class="pillar">
+          <div class="pillar-icon">S</div>
+          <div class="pillar-name">Sender</div>
+          <div class="pillar-desc">Hover the name. Is the actual address the real domain? <span class="mono hl">paypal-secure.com</span> ≠ <span class="mono hl">paypal.com</span></div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">L</div>
+          <div class="pillar-name">Links</div>
+          <div class="pillar-desc">Hover every link before clicking. Mismatched display text and URL = phishing.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">A</div>
+          <div class="pillar-name">Attachments</div>
+          <div class="pillar-desc">Unexpected file? Especially .exe .iso .lnk .zip .docm .xlsm — do not open. Confirm out-of-band.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">M</div>
+          <div class="pillar-name">Message</div>
+          <div class="pillar-desc">Urgency, threats, money, secrecy, grammar errors, generic greetings — any one = red flag.</div>
+        </div>
+      </div>
+      <div class="mt-lg">
+        <h3 style="font-family:'Fraunces',serif;font-size:24px;color:var(--ivory);font-weight:500;margin-bottom:14px">The seven <em style="color:var(--gold-400)">deadly tells</em></h3>
+        <div class="checklist">
+          <div class="check-item"><div class="check-mark">!</div><div class="check-text"><strong>Urgency</strong> — "in the next 2 hours", "today only", "your account will be closed"</div></div>
+          <div class="check-item"><div class="check-mark">!</div><div class="check-text"><strong>Authority abuse</strong> — claims from "the CEO", "the Governor", "Internal Audit"</div></div>
+          <div class="check-item"><div class="check-mark">!</div><div class="check-text"><strong>Secrecy</strong> — "do not tell anyone", "this is confidential between you and me"</div></div>
+          <div class="check-item"><div class="check-mark">!</div><div class="check-text"><strong>Look-alike domains</strong> — extra letters, dashes, country suffixes, .com vs .co</div></div>
+          <div class="check-item"><div class="check-mark">!</div><div class="check-text"><strong>Generic greeting</strong> — "Dear customer", "Dear colleague" instead of your name</div></div>
+          <div class="check-item"><div class="check-mark">!</div><div class="check-text"><strong>Off-channel</strong> request — work topic asked via WhatsApp, personal SMS, voicemail</div></div>
+          <div class="check-item"><div class="check-mark">!</div><div class="check-text"><strong>Wire transfer / gift cards</strong> — never legitimate when received unsolicited</div></div>
+          <div class="check-item"><div class="check-mark">!</div><div class="check-text"><strong>Trust your gut</strong> — if something feels off, it is. Report, don't click.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 10: PII FILTER LIVE LAB ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 04 · Live Lab · 20 pts available</div>
+      <h2 class="section">The <em>PII Filter</em> compliance lab</h2>
+      <p class="lede">Every customer message, support ticket, AI prompt, and internal email may contain regulated personal data. Paste a sample below — the filter will flag and redact PII before it can leak.</p>
+      <div class="two-col-narrow mt-md">
+        <div>
+          <div class="tool-pane">
+            <div class="tool-label">// Input text — paste a customer message or email</div>
+            <textarea class="tool-input" id="piiInput" rows="6" placeholder="Example: Dear Sarah, please call me at +962 79 555 1234 — my account 0123456789 needs urgent attention. My ID is 9851012345 and email sara.ahmad@example.com.">Dear Sarah, please call me at +962 79 555 1234 — my account 0123456789 needs urgent attention. My ID is 9851012345 and email sara.ahmad@example.com. The transfer to IBAN JO94CBJO0010000000000131000302 was rejected. Card 4532-1547-8865-9912 expires 09/27.</textarea>
+            <button class="tool-btn" onclick="runPIIFilter()">Scan & Redact</button>
+            <div class="tool-label" style="margin-top:18px">// Filtered output</div>
+            <div class="tool-output" id="piiOutput">Awaiting input…</div>
+            <div id="piiStats" style="margin-top:14px;display:none">
+              <div class="score-pill">PII entities found <span class="pts" id="piiCount">0</span></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-num">ABOUT THIS TOOL</div>
+            <div class="card-title">Inspired by the open-source <em style="color:var(--gold-400)">pii-filter</em> library</div>
+            <div class="card-body" style="margin-top:10px">
+              The reference implementation (HabaneroCake/pii-filter on GitHub) is an experimental Dutch-language PII detector — a useful conceptual model. For Bank Al Etihad we have extended the approach to detect Jordan-specific patterns: <span class="hl">JO IBANs</span>, <span class="hl">10-digit national ID</span>, <span class="hl">+962 phone formats</span>, <span class="hl">PAN/card numbers (Luhn-validated)</span>, emails, and names.
+            </div>
+          </div>
+          <div class="card mt-md">
+            <div class="card-num">WHY THIS MATTERS</div>
+            <div class="card-title">Compliance Mapping</div>
+            <div class="card-body" style="margin-top:10px">
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(201,164,86,0.15)"><span>PCI-DSS v4.0 Req. 3</span><span class="hl">Card data protection</span></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(201,164,86,0.15)"><span>Jordan PDPL 2023</span><span class="hl">Personal data</span></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(201,164,86,0.15)"><span>CBJ Cyber Framework</span><span class="hl">Data handling</span></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0"><span>ISO 27001 A.8.10</span><span class="hl">Data deletion</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 11: PII INTEGRATION GUIDE ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 04 · Integration Guide</div>
+      <h2 class="section">Bringing PII filtering <em>into your workflow</em></h2>
+      <p class="lede">Below is a reference architecture for how Bank Al Etihad teams should embed PII filtering — from the open-source pii-filter library extended for our region.</p>
+      <div class="two-col mt-md">
+        <div>
+          <div class="card">
+            <div class="card-num">3 PLACES TO PLUG IT IN</div>
+            <div class="card-title">Where the filter sits</div>
+            <div class="card-body" style="margin-top:14px;line-height:1.8">
+              <div style="margin-bottom:14px"><span class="hl mono">1.</span> <strong>Email gateway</strong> — outbound DLP scanner intercepts emails with PAN, ID, or IBAN heading externally</div>
+              <div style="margin-bottom:14px"><span class="hl mono">2.</span> <strong>AI / chatbot prompt layer</strong> — before any prompt is sent to an external LLM (ChatGPT, Claude, etc.), redact PII first</div>
+              <div><span class="hl mono">3.</span> <strong>Support-ticket pipeline</strong> — incoming customer messages are auto-tagged and PII fields masked for analyst access</div>
+            </div>
+          </div>
+          <div class="card mt-md">
+            <div class="card-num">COMPLIANCE EVIDENCE</div>
+            <div class="card-title">What auditors will ask</div>
+            <div class="card-body" style="margin-top:10px">
+              Logs of every redaction event, retention of original encrypted copies in a vault for 90 days, role-based access to unmasking, and quarterly accuracy testing. We provide all of these as part of the Etihad Insights package.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="tool-pane">
+            <div class="tool-label">// reference snippet — npm install pii-filter</div>
+            <div class="tool-output" style="font-size:12px;line-height:1.8"><span style="color:#7dd3a0">// Example usage adapted for banking context</span>
+<span style="color:#f0c068">import</span> { PIIFilter } <span style="color:#f0c068">from</span> <span style="color:#a8e8c8">'pii-filter'</span>;
+
+<span style="color:#7dd3a0">// Extend with Jordan-specific patterns</span>
+<span style="color:#f0c068">const</span> filter = <span style="color:#f0c068">new</span> PIIFilter({
+  locale: <span style="color:#a8e8c8">'jo-ar'</span>,
+  patterns: {
+    iban: <span style="color:#a8e8c8">/JO\d{2}[A-Z]{4}\d{22}/g</span>,
+    nationalId: <span style="color:#a8e8c8">/\b\d{10}\b/g</span>,
+    phone: <span style="color:#a8e8c8">/\+?962[\s-]?7[789]\d{7}/g</span>,
+    pan: <span style="color:#a8e8c8">/\b(?:\d{4}[\s-]?){3}\d{4}\b/g</span>
+  }
+});
+
+<span style="color:#f0c068">const</span> result = filter.sanitize(message);
+console.log(result.cleaned);     <span style="color:#7dd3a0">// safe to log</span>
+console.log(result.entities);    <span style="color:#7dd3a0">// audit trail</span></div>
+            <p style="font-size:11px;color:rgba(244,236,216,0.55);margin-top:14px;font-style:italic">Note: HabaneroCake/pii-filter is archived (MIT licensed). For production banking use, pair its open-source patterns with a maintained engine (Microsoft Presidio, AWS Comprehend, or a self-hosted custom build) — Etihad Insights can advise.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 12: BANKING CYBERSEC ESSENTIALS ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 05 · Banking Essentials</div>
+      <h2 class="section">The <em>non-negotiable 10</em></h2>
+      <p class="lede">If you remember nothing else from today, remember these. They are the daily behaviours that block <span class="hl">95%</span> of attempted intrusions against banks.</p>
+      <div class="checklist mt-md">
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>Lock your workstation</strong> every time you leave it. Win+L. No exceptions.</div></div>
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>Use the MFA app</strong>, not SMS. SIM swap attacks are real in Jordan.</div></div>
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>Verify wire transfer requests</strong> by callback to a known number — never the one in the email.</div></div>
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>Never reuse passwords</strong> across banking systems and personal accounts.</div></div>
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>Report phishing</strong> via the Outlook button — not by replying or forwarding.</div></div>
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>Encrypt removable media</strong>. No USB drives without BitLocker / approved policy.</div></div>
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>Clear desk policy</strong> — no customer documents visible at end of day.</div></div>
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>Verify identity</strong> before discussing any account, even with someone "from IT".</div></div>
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>Patch your machine</strong> within 24 hours of prompt. Don't snooze the update.</div></div>
+        <div class="check-item"><div class="check-mark">✓</div><div class="check-text"><strong>If in doubt, escalate</strong>. Three minutes of SOC time beats a million-dinar incident.</div></div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 13: COMPLIANCE LANDSCAPE ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 05 · Compliance Map</div>
+      <h2 class="section">Who watches <em>the watchers?</em></h2>
+      <p class="lede">Bank Al Etihad operates inside a web of overlapping regulators. Below are the eight that touch cybersecurity directly. Know which one each control answers to.</p>
+      <div class="compliance-row">
+        <div class="comp-box"><div class="comp-tag">JORDAN · 2023</div><div class="comp-name">CBJ Cyber Framework</div><div class="comp-desc">Central Bank of Jordan's binding cybersecurity instructions for banks — governance, controls, incident reporting</div></div>
+        <div class="comp-box"><div class="comp-tag">JORDAN · 2023</div><div class="comp-name">PDPL</div><div class="comp-desc">Personal Data Protection Law — consent, data subject rights, breach notification 72 hours</div></div>
+        <div class="comp-box"><div class="comp-tag">GLOBAL</div><div class="comp-name">PCI-DSS v4.0</div><div class="comp-desc">Payment card data — applies any time you handle, store, or transmit PAN</div></div>
+        <div class="comp-box"><div class="comp-tag">GLOBAL</div><div class="comp-name">Basel III</div><div class="comp-desc">Operational risk capital — cyber incidents impact bank's capital adequacy</div></div>
+        <div class="comp-box"><div class="comp-tag">ISO/IEC</div><div class="comp-name">27001:2022</div><div class="comp-desc">Information Security Management System — the certifiable baseline</div></div>
+        <div class="comp-box"><div class="comp-tag">ISO/IEC</div><div class="comp-name">42001:2023</div><div class="comp-desc">AI Management System — relevant as AI enters fraud & credit decisions</div></div>
+        <div class="comp-box"><div class="comp-tag">US/EU</div><div class="comp-name">SWIFT CSCF</div><div class="comp-desc">SWIFT Customer Security Controls Framework — mandatory for SWIFT participants</div></div>
+        <div class="comp-box"><div class="comp-tag">GLOBAL</div><div class="comp-name">FATF + AMLA</div><div class="comp-desc">Anti-money-laundering — cyber-enabled fraud falls under AML reporting obligations</div></div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 14: INCIDENT RESPONSE TABLETOP ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 06 · Tabletop · 40 pts available</div>
+      <h2 class="section">First responder <em>tabletop</em></h2>
+      <p class="lede">It's 14:32 Thursday. Branch teller Mariam notices a customer's account showing transactions she didn't authorise. The customer is on the line. The Treasury Desk just reported a similar pattern. <span class="hl">What do you do first?</span></p>
+      <div class="quiz-container">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div class="score-pill">Tabletop turn <span class="pts">1</span> of 1</div>
+          <div class="score-pill">Worth <span class="pts">40 pts</span></div>
+        </div>
+        <div class="quiz-prompt">Choose your first action in the first 90 seconds.</div>
+        <div class="quiz-scenario">SITUATION — 14:32 THURSDAY
+
+• 1 customer on the phone, distressed, 3 unauthorised transfers on his account in the last hour
+• Treasury Desk just messaged: similar unauthorised pattern on 4 other accounts
+• Branch SOC dashboard shows no current alerts
+• Your manager is in a meeting and not picking up
+
+The clock is ticking. What is your FIRST action?</div>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false" onclick="answerQ('q3', this, false, 'Calming the customer matters, but you have a likely systemic incident. Containment first, customer communication immediately after. The CSIRT process is: Detect → Contain → Eradicate → Recover → Lessons learned.', 40)"><div class="letter">A</div>Reassure the customer and promise to reverse the transactions.</button>
+          <button class="quiz-opt" data-correct="true" onclick="answerQ('q3', this, true, 'Correct. Multiple affected accounts = systemic incident. The CSIRT hotline is your single most important tool: they will lock affected accounts, freeze SWIFT/wire pipelines if needed, and notify CBJ within the 72-hour mandatory window. Document everything, take screenshots, keep the customer warm — but trigger CSIRT first.', 40)"><div class="letter">B</div>Call the CSIRT hotline immediately, then keep the customer engaged.</button>
+          <button class="quiz-opt" data-correct="false" onclick="answerQ('q3', this, false, 'Don\'t wait for your manager. CBJ requires breach notification within 72 hours and the bank needs containment in minutes, not hours. Escalate to CSIRT — they will involve your manager.', 0)"><div class="letter">C</div>Wait for your manager to call back before doing anything.</button>
+          <button class="quiz-opt" data-correct="false" onclick="answerQ('q3', this, false, 'Posting publicly during an active incident is catastrophic — it tips off attackers, damages reputation, and violates incident communication policy. Only the CISO or designated spokesperson communicates externally.', 0)"><div class="letter">D</div>Post a warning on the bank's social media to alert other customers.</button>
+        </div>
+        <div class="quiz-feedback" id="q3Feedback"></div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 15: IR FRAMEWORK ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 06 · Reference</div>
+      <h2 class="section">The <em>6-step</em> incident response chain</h2>
+      <p class="lede">NIST SP 800-61. Print it. Memorise it. Every minute saved in step 2 saves the bank tens of thousands of dinars and hours of regulatory exposure.</p>
+      <div class="pillar-row" style="grid-template-columns:repeat(6,1fr);margin-top:24px">
+        <div class="pillar"><div class="pillar-icon">1</div><div class="pillar-name">Prepare</div><div class="pillar-desc">Plans, playbooks, runbooks, contact tree, tabletop drills</div></div>
+        <div class="pillar"><div class="pillar-icon">2</div><div class="pillar-name">Detect</div><div class="pillar-desc">SIEM alerts, user reports, anomalies — minute zero matters</div></div>
+        <div class="pillar"><div class="pillar-icon">3</div><div class="pillar-name">Contain</div><div class="pillar-desc">Isolate the affected systems — freeze, don't shut down</div></div>
+        <div class="pillar"><div class="pillar-icon">4</div><div class="pillar-name">Eradicate</div><div class="pillar-desc">Remove the threat actor and their persistence mechanisms</div></div>
+        <div class="pillar"><div class="pillar-icon">5</div><div class="pillar-name">Recover</div><div class="pillar-desc">Restore systems, verify integrity, monitor for reinfection</div></div>
+        <div class="pillar"><div class="pillar-icon">6</div><div class="pillar-name">Learn</div><div class="pillar-desc">Post-incident review — what worked, what failed, fix it</div></div>
+      </div>
+      <div class="mt-lg">
+        <div class="module-marker">// MANDATORY NOTIFICATIONS — TIME ENVELOPES</div>
+        <div class="threat-list" style="margin-top:14px">
+          <div class="threat-item"><div class="threat-num" style="color:#ee8888">15m</div><div><div class="threat-name">Internal CSIRT activation</div><div class="threat-desc">From first credible indicator</div></div><div class="threat-sev sev-critical">INTERNAL</div></div>
+          <div class="threat-item"><div class="threat-num" style="color:#f0c068">4h</div><div><div class="threat-name">Executive committee briefing</div><div class="threat-desc">CEO, CISO, COO, Legal, Communications</div></div><div class="threat-sev sev-high">EXEC</div></div>
+          <div class="threat-item"><div class="threat-num" style="color:#f0c068">24h</div><div><div class="threat-name">CBJ preliminary notification</div><div class="threat-desc">Per CBJ Cyber Framework — initial report</div></div><div class="threat-sev sev-high">REGULATOR</div></div>
+          <div class="threat-item"><div class="threat-num" style="color:#7dd3a0">72h</div><div><div class="threat-name">PDPL data-subject breach notification</div><div class="threat-desc">If personal data exposure confirmed — Jordan PDPL Article 16</div></div><div class="threat-sev sev-medium">LEGAL</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 16: DAILY INTEL HUB ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 07 · Daily Intelligence Hub</div>
+      <h2 class="section">Where to read the <em>news of the day</em></h2>
+      <p class="lede">Bookmark these. Open them with your morning coffee. Five minutes scanning these feeds will keep you ahead of <span class="hl">90%</span> of new threats targeting banks.</p>
+      <div class="intel-grid">
+        <div class="intel-card">
+          <div class="intel-source">VULNERABILITIES · CVES</div>
+          <div class="intel-title">Snyk Vulnerability Database</div>
+          <div class="intel-desc">Comprehensive open-source vulnerability database — 3× more vulnerabilities tracked than NVD. Covers npm, Maven, pip, NuGet, Go, Linux distros. Use for any code or dependency the bank relies on.</div>
+          <a class="intel-link" href="https://security.snyk.io" target="_blank">security.snyk.io →</a>
+        </div>
+        <div class="intel-card">
+          <div class="intel-source">FINANCIAL THREAT INTEL</div>
+          <div class="intel-title">FS-ISAC</div>
+          <div class="intel-desc">Financial Services ISAC — member-driven intel sharing for the global banking sector. STIX/TAXII feeds, weekly risk summary reports, regional briefings (EMEA/APAC), and the IntelX sharing platform.</div>
+          <a class="intel-link" href="https://www.fsisac.com" target="_blank">fsisac.com →</a>
+        </div>
+        <div class="intel-card">
+          <div class="intel-source">NATIONAL REGULATOR</div>
+          <div class="intel-title">CBJ Cybersecurity Bulletins</div>
+          <div class="intel-desc">Central Bank of Jordan's cybersecurity instructions, advisories, and incident bulletins for licensed banks. Mandatory reading for compliance officers and CISO offices.</div>
+          <a class="intel-link" href="https://www.cbj.gov.jo" target="_blank">cbj.gov.jo →</a>
+        </div>
+        <div class="intel-card">
+          <div class="intel-source">GLOBAL CVE BASELINE</div>
+          <div class="intel-title">NIST NVD</div>
+          <div class="intel-desc">National Vulnerability Database — the US government CVE feed. CVSS scores, exploit info, vendor advisories. The reference everyone else compares to.</div>
+          <a class="intel-link" href="https://nvd.nist.gov" target="_blank">nvd.nist.gov →</a>
+        </div>
+        <div class="intel-card">
+          <div class="intel-source">EXPLOIT INTEL</div>
+          <div class="intel-title">CISA KEV Catalog</div>
+          <div class="intel-desc">CISA's Known Exploited Vulnerabilities catalog — vulns being actively exploited in the wild. Highest-priority patching list. Updated daily.</div>
+          <a class="intel-link" href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank">cisa.gov/kev →</a>
+        </div>
+        <div class="intel-card">
+          <div class="intel-source">BREACH DISCLOSURE</div>
+          <div class="intel-title">Have I Been Pwned</div>
+          <div class="intel-desc">Check whether bank email domains or customer addresses appear in known breach corpora. Sign up for domain monitoring — free for verified domain owners.</div>
+          <a class="intel-link" href="https://haveibeenpwned.com" target="_blank">haveibeenpwned.com →</a>
+        </div>
+        <div class="intel-card">
+          <div class="intel-source">DAILY NEWS</div>
+          <div class="intel-title">The Hacker News</div>
+          <div class="intel-desc">Daily cyber-security news, focused on breaches, exploits, and vendor advisories. Quick to read, easy morning briefing material.</div>
+          <a class="intel-link" href="https://thehackernews.com" target="_blank">thehackernews.com →</a>
+        </div>
+        <div class="intel-card">
+          <div class="intel-source">REGIONAL CERT</div>
+          <div class="intel-title">JoCERT / NCSC</div>
+          <div class="intel-desc">Jordan's National Computer Emergency Response Team — regional advisories, sector-specific alerts, and incident coordination point for Jordanian banks.</div>
+          <a class="intel-link" href="https://www.ncsc.gov.jo" target="_blank">ncsc.gov.jo →</a>
+        </div>
+        <div class="intel-card">
+          <div class="intel-source">RANSOMWARE WATCH</div>
+          <div class="intel-title">Ransomware.live</div>
+          <div class="intel-desc">Real-time monitoring of ransomware leak sites — see who is being attacked in your sector, by whom, and what data has been exfiltrated. Early-warning signal.</div>
+          <a class="intel-link" href="https://www.ransomware.live" target="_blank">ransomware.live →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 17: DAILY ROUTINE ===== -->
+    <section class="slide">
+      <div class="eyebrow">Module 07 · Operating Rhythm</div>
+      <h2 class="section">Your <em>5-minute</em> morning routine</h2>
+      <p class="lede">A discipline, not a chore. Every morning, before your first coffee finishes, complete the loop below.</p>
+      <div class="two-col mt-md">
+        <div>
+          <div class="threat-list">
+            <div class="threat-item"><div class="threat-num">1m</div><div><div class="threat-name">Check Snyk dashboard</div><div class="threat-desc">New high/critical CVEs in dependencies you own</div></div><div class="threat-sev sev-medium">FAST</div></div>
+            <div class="threat-item"><div class="threat-num">1m</div><div><div class="threat-name">Read FS-ISAC alert digest</div><div class="threat-desc">Overnight sector intel — any active campaigns?</div></div><div class="threat-sev sev-medium">FAST</div></div>
+            <div class="threat-item"><div class="threat-num">1m</div><div><div class="threat-name">Scan CISA KEV new entries</div><div class="threat-desc">Anything actively exploited that affects us?</div></div><div class="threat-sev sev-medium">FAST</div></div>
+            <div class="threat-item"><div class="threat-num">1m</div><div><div class="threat-name">Glance CBJ / JoCERT bulletins</div><div class="threat-desc">National-level advisories — Jordanian sector signals</div></div><div class="threat-sev sev-medium">FAST</div></div>
+            <div class="threat-item"><div class="threat-num">1m</div><div><div class="threat-name">Phishing report queue</div><div class="threat-desc">Anything reported by colleagues overnight that affects your team?</div></div><div class="threat-sev sev-medium">FAST</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-num">WEEKLY DISCIPLINES</div>
+            <div class="card-title">Beyond the daily check</div>
+            <div class="card-body" style="margin-top:14px;line-height:1.8">
+              <div><span class="hl mono">MON</span> Patch review — what got updated, what didn't</div>
+              <div><span class="hl mono">TUE</span> Phishing-simulation results — top clickers list</div>
+              <div><span class="hl mono">WED</span> Access review — joiners/movers/leavers</div>
+              <div><span class="hl mono">THU</span> Backup integrity test — restore one random file</div>
+              <div><span class="hl mono">FRI</span> Tabletop scenario — 15-min team drill</div>
+            </div>
+          </div>
+          <div class="card mt-md">
+            <div class="card-num">MONTHLY</div>
+            <div class="card-title">Bigger checkpoints</div>
+            <div class="card-body" style="margin-top:10px">Full external attack-surface scan. Privileged account audit. Vendor SOC 2 / ISO refresh check. Tabletop with executives. Update threat model.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 18: CLOSING ===== -->
+    <section class="slide closing">
+      <div class="eyebrow" style="justify-content:center">Programme Complete</div>
+      <h1 class="title" style="text-align:center">Welcome to the <em>Deep Edge</em>.</h1>
+      <p class="lede" style="margin-top:24px">You are now part of a small group inside Bank Al Etihad who can tell the difference between a glitch and a breach. Carry it forward — every day, every email, every transaction.</p>
+      <div class="closing-grid">
+        <div class="closing-cell">
+          <div class="closing-num" id="finalScoreDisplay">—</div>
+          <div class="closing-cell-label">Your final score</div>
+        </div>
+        <div class="closing-cell">
+          <div class="closing-num" id="finalRank">—</div>
+          <div class="closing-cell-label">Your rank</div>
+        </div>
+        <div class="closing-cell">
+          <div class="closing-num" id="finalBadges">0</div>
+          <div class="closing-cell-label">Badges earned</div>
+        </div>
+      </div>
+      <div style="margin-top:48px;display:flex;gap:16px">
+        <button class="nav-btn primary" onclick="downloadCertificate()">Download My Certificate</button>
+        <button class="nav-btn" onclick="goSlide(0)">Restart Programme</button>
+      </div>
+      <div style="margin-top:64px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;color:rgba(244,236,216,0.4);text-align:center">
+        ETIHAD INSIGHTS · DR. RAMI · THE DEEP EDGE PROGRAMME · ©2026
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="nav">
+    <div class="nav-left">
+      <button class="nav-btn" onclick="prevSlide()">← Prev</button>
+      <div class="dot-track" id="dots"></div>
+    </div>
+    <div class="nav-right">
+      <div class="slide-counter" id="counter">01 / 18</div>
+      <button class="nav-btn primary" onclick="nextSlide()">Next →</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" style="position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--gold-500);color:var(--navy-900);padding:14px 24px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;z-index:100;transition:transform .3s;box-shadow:0 8px 24px rgba(0,0,0,0.3)"></div>
+
+</div>
+
+<script>
+// =================== SLIDE NAV ===================
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+let cur=0;
+const dotTrack=document.getElementById('dots');
+for(let i=0;i<total;i++){
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>goSlide(i);
+  dotTrack.appendChild(d);
+}
+function goSlide(i){
+  if(i<0||i>=total)return;
+  slides[cur].classList.remove('active');
+  document.querySelectorAll('.dot')[cur].classList.remove('active');
+  cur=i;
+  slides[cur].classList.add('active');
+  document.querySelectorAll('.dot')[cur].classList.add('active');
+  updateCounter();
+  if(cur===total-1)updateFinalScreen();
+}
+function nextSlide(){if(cur<total-1)goSlide(cur+1)}
+function prevSlide(){if(cur>0)goSlide(cur-1)}
+function updateCounter(){
+  document.getElementById('counter').textContent=String(cur+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')nextSlide();
+  if(e.key==='ArrowLeft')prevSlide();
+});
+
+// =================== SCORE SYSTEM ===================
+let score=0;
+let badges=[];
+const answered={};
+function addScore(pts,badge){
+  score+=pts;
+  document.getElementById('totalScore').textContent=score;
+  if(badge&&!badges.includes(badge)){
+    badges.push(badge);
+    const b=document.createElement('div');
+    b.className='badge';b.textContent=badge;
+    document.getElementById('badges').appendChild(b);
+  }
+}
+function answerQ(qId,btn,correct,explanation,pts=10){
+  if(answered[qId])return;
+  answered[qId]=true;
+  const opts=btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>{
+    if(o.dataset.correct==='true')o.classList.add('correct');
+  });
+  if(!correct)btn.classList.add('wrong');
+  const fb=document.getElementById(qId+'Feedback');
+  fb.className='quiz-feedback show '+(correct?'correct':'wrong');
+  fb.innerHTML='<strong>'+(correct?'✓ Correct.':'✗ Not quite.')+'</strong> '+explanation;
+  if(correct){
+    addScore(pts,qId==='q1'?'BREACH-SPOTTER':(qId==='q2'?'PHISH-SPOTTER':'FIRST-RESPONDER'));
+    showToast('+'+pts+' points');
+  }
+  document.getElementById('scoreBoard').style.display='block';
+}
+
+// =================== PII FILTER (browser-side demo) ===================
+function runPIIFilter(){
+  const input=document.getElementById('piiInput').value;
+  if(!input.trim()){
+    document.getElementById('piiOutput').textContent='No input provided.';
+    return;
+  }
+  let count=0;
+  let highlighted=input;
+  let redacted=input;
+
+  // Jordan IBAN
+  highlighted=highlighted.replace(/JO\d{2}[A-Z]{4}\d{16,22}/g,m=>{count++;return `<span class="pii-tag">[IBAN: ${m}]</span>`});
+  redacted=redacted.replace(/JO\d{2}[A-Z]{4}\d{16,22}/g,'[IBAN-REDACTED]');
+
+  // PAN / card number
+  highlighted=highlighted.replace(/\b(?:\d{4}[\s\-]?){3}\d{4}\b/g,m=>{count++;return `<span class="pii-tag">[CARD: ${m}]</span>`});
+  redacted=redacted.replace(/\b(?:\d{4}[\s\-]?){3}\d{4}\b/g,'[CARD-REDACTED]');
+
+  // Jordan phone +962
+  highlighted=highlighted.replace(/\+?962[\s\-]?7[789]\s?\d{3}\s?\d{4}/g,m=>{count++;return `<span class="pii-tag">[PHONE: ${m}]</span>`});
+  redacted=redacted.replace(/\+?962[\s\-]?7[789]\s?\d{3}\s?\d{4}/g,'[PHONE-REDACTED]');
+
+  // Email
+  highlighted=highlighted.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g,m=>{count++;return `<span class="pii-tag">[EMAIL: ${m}]</span>`});
+  redacted=redacted.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g,'[EMAIL-REDACTED]');
+
+  // Account number (10+ digits, not part of card/IBAN)
+  highlighted=highlighted.replace(/\b\d{9,12}\b/g,m=>{count++;return `<span class="pii-tag">[ID/ACCT: ${m}]</span>`});
+  redacted=redacted.replace(/\b\d{9,12}\b/g,'[ID/ACCT-REDACTED]');
+
+  document.getElementById('piiOutput').innerHTML=
+    '<div style="font-size:11px;color:var(--gold-400);letter-spacing:.2em;margin-bottom:10px">DETECTED PII (highlighted):</div>'+
+    highlighted+
+    '<div style="font-size:11px;color:#7dd3a0;letter-spacing:.2em;margin:18px 0 10px">SAFE-TO-LOG VERSION:</div>'+
+    '<span class="pii-redacted" style="display:inline">'+redacted+'</span>';
+
+  document.getElementById('piiCount').textContent=count;
+  document.getElementById('piiStats').style.display='block';
+
+  if(!answered['piiLab']){
+    answered['piiLab']=true;
+    addScore(20,'PRIVACY-GUARDIAN');
+    showToast('+20 points · Privacy Guardian unlocked');
+    document.getElementById('scoreBoard').style.display='block';
+  }
+}
+
+// =================== TOAST ===================
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.transform='translateX(-50%) translateY(0)';
+  setTimeout(()=>{t.style.transform='translateX(-50%) translateY(100px)'},2200);
+}
+
+// =================== FINAL SCREEN ===================
+function updateFinalScreen(){
+  document.getElementById('finalScoreDisplay').textContent=score;
+  document.getElementById('finalBadges').textContent=badges.length;
+  let rank='Apprentice';
+  if(score>=120)rank='Sentinel';
+  else if(score>=90)rank='Defender';
+  else if(score>=60)rank='Aware';
+  document.getElementById('finalRank').textContent=rank;
+}
+
+function downloadCertificate(){
+  const name=prompt("Enter your full name for the certificate:","");
+  if(!name)return;
+  const w=window.open('','_blank','width=900,height=700');
+  w.document.write(`
+    <html><head><title>Etihad Cyber Champion Certificate</title>
+    <style>
+    body{margin:0;font-family:Georgia,serif;background:#0a1628;color:#f4ecd8;padding:60px;text-align:center}
+    .cert{border:8px double #c9a456;padding:80px 60px;background:linear-gradient(135deg,#0f2042,#142a55)}
+    h1{font-size:14px;letter-spacing:.4em;color:#c9a456;margin-bottom:30px}
+    h2{font-size:42px;font-style:italic;margin:20px 0;font-weight:400}
+    .name{font-size:38px;color:#c9a456;margin:30px 0;border-bottom:2px solid #c9a456;padding-bottom:20px;display:inline-block}
+    .stat{font-size:18px;margin:14px 0}
+    .stat span{color:#c9a456;font-weight:bold}
+    .footer{margin-top:60px;font-size:11px;letter-spacing:.3em;color:rgba(244,236,216,0.6)}
+    </style></head><body><div class="cert">
+    <h1>BANK AL ETIHAD · CYBERSECURITY ESSENTIALS</h1>
+    <h2>Certificate of Completion</h2>
+    <p>This is to certify that</p>
+    <div class="name">${name}</div>
+    <p>has successfully completed the one-day Cybersecurity Essentials training,</p>
+    <p>delivered by Dr. Rami under the Etihad Insights programme.</p>
+    <div class="stat">Final Score: <span>${score} points</span></div>
+    <div class="stat">Rank Achieved: <span>${document.getElementById('finalRank').textContent}</span></div>
+    <div class="stat">Badges: <span>${badges.join(' · ')||'—'}</span></div>
+    <div class="footer">ISSUED ${new Date().toDateString().toUpperCase()} · ETIHAD INSIGHTS · THE DEEP EDGE PROGRAMME</div>
+    </div></body></html>
+  `);
+}
+function nextQuestion(){nextSlide()}
+
+updateCounter();
+</script>
+</body>
+</html>
